@@ -20,6 +20,6 @@ if it's not present, don't show loader */
 /* Parallax scrolling */
 .parallax-window {
     /* TODO CHANGE TO 400px*/
-    min-height: 1200px;
+    min-height: 400px;
     background: transparent;
 }
