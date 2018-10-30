@@ -1,7 +1,9 @@
 ---
 title: A summary on backpack problems
-date: 2018-10-29 21:29:31
-tags: [algorithm, backpack, lintcode]
+date: 2018-10-30 21:29:31
+tags: [algorithm, backpack, lintcode, dynamic programming]
+categories:
+- [Algorithms]
 ---
 
 # 可行性背包类
