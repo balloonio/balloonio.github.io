@@ -64,12 +64,14 @@ hexo是一个静态网站生成框架,简单来说,就是一个source code 
 
 # 部署站点到GitHub Pages
 
-  ## 安装`hexo-deployer-git`
-  ```
+## 安装`hexo-deployer-git`
+
+  ```bash
   $ npm install hexo-deployer-git –save
   ```
 
-  ## 编辑`_config.yml`网站配置文件,修改deployment参数  
+## 编辑`_config.yml`网站配置文件  
+
   {% codeblock lang:yml %}
   # Deployment
   ## Docs: https://hexo.io/docs/deployment.html
@@ -84,5 +86,6 @@ hexo是一个静态网站生成框架,简单来说,就是一个source code 
   ```
   这时再进入master branch就可以看到部署的所有的网页文件了.
 
-  ## 自定义域名 (Optional)
+## 自定义域名 (Optional)
+
   如果你有自定义域名指向GitHub Pages的话,其必须的`CNAME`文件会被deployment覆覆盖掉. 解决办法是将`CNAME`文件复制到网站源文件,也就是source branch,下的source文件夹内.这样hexo部署站点的时候会一并将`CNAME` push到master branch
