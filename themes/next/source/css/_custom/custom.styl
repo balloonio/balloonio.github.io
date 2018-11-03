@@ -1,2 +1,42 @@
 // Custom styles.
+
+// Purdue color
+$purdue-gold = #CEB888
+$purdue-grey = #9D968D
+$purdue-dark-grey = #373A36
+
 .post-body { text-align: justify }
+
+.sidebar-toggle-line {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 2px;
+  width: 100%;
+  background: $purdue-gold;
+  margin-top: 3px;
+
+  &:first-child { margin-top: 0; }
+}
+
+.links-of-author a,
+.links-of-author .exturl {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-bottom-color: $black-light;
+  font-size: 13px;
+  if hexo-config('social_icons.transition') { the-transition(); }
+
+  &:before {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+    content: " ";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: $purdue-gold;
+  }
+}
