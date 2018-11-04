@@ -7,7 +7,7 @@ title: a blog
 subtitle:
 description:
 keywords:
-author: Boloon
+author: 一只不甘做菜鸟的菜鸟
 language:
 timezone:
 
@@ -30,7 +30,7 @@ skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts
-default_layout: draft
+default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0

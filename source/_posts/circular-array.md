@@ -38,8 +38,8 @@ Given a circular array C of integers represented by A, find the maximum possible
 
 数组有正有负意味着无法使用双指针,又要找一个数左边的最小(前缀和),那就要想到双端队列.
 
-  ```python
-  class Solution:
+```python
+class Solution:
     def maxSubarraySumCircular(self, A):
         """
         :type A: List[int]
@@ -71,14 +71,14 @@ Given a circular array C of integers represented by A, find the maximum possible
             # 记得将元素入列
             ascdeq.append((presum, i))
         return maxsum
-  ```
+```
 
 ## 首尾相连与首尾不相连分开讨论
 
 其实上面关于收尾分开讨论的思路已经描述得很具体了,唯一需要注意的就是数组非空的要求. 当数组元素全部为负数的时候,如果再去考虑找整个数组的最小子数组,那就会找到整个数组,导致`totalsum - minsum`为0,也就是求得一个空数组,不符合题意. 所以当数组元素全部为负数的时候,我们不必再考虑首尾不相连.
 
-  ```python
-  class Solution:
+```python
+class Solution:
     def maxSubarraySumCircular(self, A):
         """
         :type A: List[int]
@@ -115,4 +115,4 @@ Given a circular array C of integers represented by A, find the maximum possible
                 maxsum = max(maxsum, prefixsum - minps )
                 minps = min(minps, prefixsum)
         return maxsum
-  ```
+```
