@@ -22,6 +22,10 @@ categories:
 
 ## 哈希函数
 
+{% blockquote LintCode https://www.lintcode.com/problem/hash-function/description Hash Function %}
+在数据结构中，哈希函数是用来将一个字符串（或任何其他类型）转化为小于哈希表大小且大于等于零的整数。一个好的哈希函数可以尽可能少地产生冲突。
+{% endblockquote %}
+&nbsp;
 哈希函数的目的是作为一个映射,将key对应到一个地址空间上,通常的哈希函数具有如下特点.
 
 - 快速生成哈希值,时间复杂度为`O(size of key)`
