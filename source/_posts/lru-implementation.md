@@ -41,7 +41,7 @@ In order to remove the least used item when cache is full, apparently the data s
 
 Therefore, the final idea is to use a double linked list to store the items in time sequence, while at the same time to use a hashmap to keep track of a key to its item node in the list so that O(1) insertion and removal based on the key is achieved.
 
-# Show the code
+# Show me the code
 
 A generic double linked list that supports insertion and removal by node:
 
@@ -140,7 +140,7 @@ Design a data structure to hold objects with a corresponding integer weight. It 
 
 Similar to LRU cache, this data structure requires fast insertion and removal, which leads to hashmap. In addition, it requires a weighted random functionality. Usually with weigthted random questions, a prefix sum will be used to calculate the cumulative weight so far. However, in order to calculate the cumulative weight, the cache has to be iterated in a certain sequence. Thus, it leads to a linked list.
 
-## Show the code
+## Show me the code
 
 A generic double linked list that is similar to the one from LRU cache, except the insertion takes place at the tail instead of at the head:
 
@@ -227,7 +227,7 @@ class WeightRandom:
             return None
 
         randres = random.randint(1, self.totalsum)
-        # loop through lsit to find the first node that is greater than or equal to randres
+        # loop through list to find the first node that is greater than or equal to randres
         cumsum = 0
         node = self.nodelist.head
 
