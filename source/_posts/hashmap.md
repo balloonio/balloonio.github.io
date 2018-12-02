@@ -1,5 +1,5 @@
 ---
-title: Hashmap
+title: What is Hashmap?
 date: 2018-11-04 01:28:03
 tags:
 - algorithm
