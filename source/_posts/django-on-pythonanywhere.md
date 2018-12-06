@@ -134,3 +134,46 @@ hello_world
         wsgi.py
         __init__.py
 ```
+
+# Revisit WSGI configuration file
+
+Before we start any work, let's go to your-username.pythonanywhere.com and see how our barebone website looks like. Surprisingly, it still shows the default page that we saw before. Now as an experienced software engineer, your guts tells you something is not right - the default page doesn't seem to come from our project source at all. 
+
+You are totally correct. The default page comes from the WSGI file, not the WSGI file that Django generates under `mysite/` but the one specifically provided by PythonAnywhere in the **WSGI configuration file** field. Here is the part that renders the default page:
+
+```python
+# +++++++++++ HELLO WORLD +++++++++++
+# A little pure-wsgi hello world we've cooked up, just
+# to prove everything works.  You should delete this
+# code to get your own working.
+
+
+HELLO_WORLD = """<html>
+<head>
+    <title>Python Anywhere hosted web application</title>
+</head>
+<body>
+<h1>Hello, World!</h1>
+<p>
+    This is the default welcome page for a
+    <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>
+    hosted web application.
+</p>
+<p>
+    Find out more about how to configure your own web application
+    by visiting the <a href="https://www.pythonanywhere.com/web_app_setup/">web app setup</a> page
+</p>
+</body>
+</html>"""
+
+def application(environ, start_response):
+    if environ.get('PATH_INFO') == '/':
+        status = '200 OK'
+        content = HELLO_WORLD
+    else:
+        status = '404 NOT FOUND'
+        content = 'Page not found.'
+    response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(content)))]
+    start_response(status, response_headers)
+    yield content.encode('utf8')
+```
