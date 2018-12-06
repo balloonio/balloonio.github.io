@@ -1,5 +1,5 @@
 ---
-title: Host a Django website on PythonAnywhere for free
+title: Host Django website on PythonAnywhere
 date: 2018-12-05 21:36:04
 tags:
   - techstack
@@ -14,17 +14,17 @@ categories:
 
 Go to www.pythonanywhere.com and create an account. The website supports both free tier and paid plans. The free tier plan gives you one web app at your-username.pythonanywhere.com. The web app will be disabled if there is no activity for 3 months. (As long as you are clicking the button to indicate an active usage every 3 month, the web app will keep running.)
 
-# Web App creation
+# Web app creation
 
 Go to the **Web** tab on PythonAnywhere, and select **Add a new web app**. Now a popup will come up to ask you to upgrade your plan; otherwise, a free tier web app can only be host at your-username.pythonanywhere.com instead of a customized domain.
 
 Next, it asks you to **Select a Python Web framework**. Please select **>>Manual configuration (including virtualenvs)** instead of the **Django** option. This one gives you more options and flexibility. Lastly, you need to select a Python version to work with.
 
-# Web App Configuration
+# Web app configuration
 
 As soon as you finish all those popup prompts above, you come to this page which says **Configuration for your-username.pythonanywhere.com** Here we need to make some configuration changes to make the site linked with the code.
 
-## Default Page
+## Default page
 
 Before we actually make any change to the configurations, if we go to the url your-username.pythonanywhere.com, we can already see a default page showing up like the following:
 
@@ -37,7 +37,7 @@ Find out more about how to configure your own web application by visiting the we
 
 We will soon discuss where this default page is coming from.
 
-## Code and Virtualenv
+## Code and virtualenv
 
 Under **Code** section, there is a **Source code** field which says *Enter the path to your web app source code*. Here you want to put the path to your source code. For example
 
@@ -59,7 +59,7 @@ Under **Code** section, there is another very important field **WSGI configurati
 WSGI configuration file: /var/www/your-username_pythonanywhere_com_wsgi.py
 ```
 
-## Log files
+## log files
 
 PythonAnywhere provides three log files by default. They are very helpful in terms of debugging.
 
@@ -67,4 +67,70 @@ PythonAnywhere provides three log files by default. They are very helpful in ter
 Access log: your-username.pythonanywhere.com.access.log
  Error log: your-username.pythonanywhere.com.error.log
 Server log: your-username.pythonanywhere.com.server.log
+```
+
+# Initialize virtualenv and install Django
+
+Go to the **Console** tab, and here you can start a new console. You will find yourself landed in a home directory with a README file:
+
+```bash
+06:00 ~ $ ls
+README.txt
+06:00 ~ $ pwd
+/home/your-username
+```
+
+Since there is only one web app for free tier user, let's try to reuse this same cloud space for different apps. Therefore, let's create a subdirectory to work on each application:
+
+```bash
+06:02 ~ $ mkdir hello_world
+06:03 ~ $ cd hello_world/
+```
+
+Create a virtual environment:
+
+```bash
+06:04 ~/hello_world $ python3 -m venv myvenv
+06:04 ~/hello_world $ ls
+myvenv
+06:05 ~/hello_world $ source myvenv/bin/activate
+(myvenv) 06:05 ~/hello_world $  
+```
+
+Install Django inside this virtual environment. This process may take a little while. After a successful installation, you may see something like this: (Verify the Django version with `django-admin --version`.)
+
+```bash
+(myvenv) 06:05 ~/hello_world $ pip3 install django
+Looking in links: /usr/share/pip-wheels
+Collecting django
+  Using cached https://files.pythonhosted.org/packages/fd/9a/0c028ea0fe4f5803dda1a7afabeed958d0c8b79b0fe762ffbf728db3b90d/Django-2.1.4-py3-none-any.whl
+Collecting pytz (from django)
+  Using cached https://files.pythonhosted.org/packages/f8/0e/2365ddc010afb3d79147f1dd544e5ee24bf4ece58ab99b16fbb465ce6dc0/pytz-2018.7-py2.py3-none-any.whl
+Installing collected packages: pytz, django
+Successfully installed django-2.1.4 pytz-2018.7 
+(myvenv) 06:14 ~/hello_world $ django-admin --version
+2.1.4
+```
+
+# Initialize Django site
+
+Now that we have Django successfully installed, let's initialize the project:
+
+```bash
+(myvenv) 06:15 ~/hello_world $ django-admin startproject mysite .
+(myvenv) 06:17 ~/hello_world $ ls
+manage.py  mysite  myvenv
+```
+
+Now, the project directory structure should look like this:
+
+```
+hello_world
+├───(myvenv)
+├───manage.py
+└───mysite
+        settings.py
+        urls.py
+        wsgi.py
+        __init__.py
 ```
