@@ -37,7 +37,7 @@ Find out more about how to configure your own web application by visiting the we
 
 We will soon discuss where this default page is coming from.
 
-## Code and virtualenv
+## Code and virtualenv (optional)
 
 Under **Code** section, there is a **Source code** field which says *Enter the path to your web app source code*. Here you want to put the path to your source code. For example
 
@@ -50,6 +50,8 @@ Similarly, under **Virtualenv** section, you want to specify the path to the vir
 ```
 /home/bolunzhang/hello_world/venv
 ```
+
+This part is optional, because based on my testing the entire website works fine even if these two fields are left untouched. I'm not entirely sure about the effect of these two fields at this point.
 
 ## WSGI configuration file
 
