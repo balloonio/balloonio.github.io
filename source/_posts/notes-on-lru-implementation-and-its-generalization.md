@@ -6,9 +6,6 @@ tags:
   - data structure
   - hashmap
   - linked list
-categories:
-  - - Algorithms
-    - Data Structure
 ---
 
 # What is LRU

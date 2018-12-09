@@ -6,8 +6,6 @@ tags:
   - front-end
   - web
   - django
-categories:
-  - - TechStacks
 ---
 
 # Create account

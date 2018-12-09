@@ -5,9 +5,6 @@ tags:
 - algorithm
 - hashmap
 - data structure
-categories:
-  - - Algorithms
-    - Data Structure
 ---
 
 # 综述

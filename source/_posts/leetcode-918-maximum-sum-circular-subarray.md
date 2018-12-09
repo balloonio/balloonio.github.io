@@ -8,9 +8,6 @@ tags:
   - prefix sum
   - deque
   - pointer
-categories:
-  - - Algorithms
-    - LeetCode
 date: 2018-11-03 20:35:56
 ---
 

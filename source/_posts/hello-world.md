@@ -7,8 +7,6 @@ tags:
   - techstack
   - front-end
   - web
-categories:
-  - - TechStacks
 date: 2018-10-30 08:00:36
 ---
 
