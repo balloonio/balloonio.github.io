@@ -28,12 +28,7 @@ As soon as you finish all those popup prompts above, you come to this page which
 
 Before we actually make any change to the configurations, if we go to the url your-username.pythonanywhere.com, we can already see a default page showing up like the following:
 
-```
-Hello, World!
-This is the default welcome page for a PythonAnywhere hosted web application.
-
-Find out more about how to configure your own web application by visiting the web app setup page
-```
+{% img [class names] /assets/pythonanywhere-default.JPG [530] [211] [PythonAnywhere welcome page] %}
 
 We will soon discuss where this default page is coming from.
 
