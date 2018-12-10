@@ -3,9 +3,7 @@ title: Hello world
 tags:
   - hexo
   - nexT
-  - blog
-  - techstack
-  - front-end
+  - front end
   - web
 date: 2018-10-30 08:00:36
 ---

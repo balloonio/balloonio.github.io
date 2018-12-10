@@ -2,8 +2,7 @@
 title: Host Django website on PythonAnywhere
 date: 2018-12-05 21:36:04
 tags:
-  - techstack
-  - front-end
+  - front end
   - web
   - django
 ---

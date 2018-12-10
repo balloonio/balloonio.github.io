@@ -2,8 +2,7 @@
 title: A beginner's notes on HTTP
 date: 2018-12-08 23:36:13
 tags:
-  - techstack
-  - front-end
+  - front end
   - web
   - http
 ---
