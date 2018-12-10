@@ -1,5 +1,5 @@
 ---
-title: Notes on LRU implementation and its generalization
+title: Notes on LRU implementation
 date: 2018-11-08 00:43:45
 tags:
   - algorithm
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-# Generalization
+# Similar problem
 
 Now let's examine this implementation closely - hashmap is used to achieve O(1) insertion and removal by key, while double linked list is used to preserve the sequence. Therefore, it is natural to ask the question - can such data structure be used to solve other problems that also requires fast insertion and removal together with sequencing?
 
