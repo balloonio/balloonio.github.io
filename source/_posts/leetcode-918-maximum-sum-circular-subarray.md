@@ -11,6 +11,10 @@ tags:
 date: 2018-11-03 20:35:56
 ---
 
+Given a circular array C of integers represented by A, find the maximum possible sum of a non-empty subarray of C.
+
+<!-- more -->
+
 # 题目详情
 
 LeetCode周赛105期有这样一道题

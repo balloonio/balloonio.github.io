@@ -7,6 +7,10 @@ tags:
   - django
 ---
 
+Have you ever wondered how to set up your Django app on a real website? This blog shows you how to easily host a Django web app on PythongAnywhere for free.
+
+<!-- more -->
+
 # Create account
 
 Go to www.pythonanywhere.com and create an account. The website supports both free tier and paid plans. The free tier plan gives you one web app at your-username.pythonanywhere.com. (For me and for the context of this tutorial, it will be bolunzhang.pythonanywhere.com.) The web app will be disabled if there is no activity for 3 months. (As long as you are clicking the button to indicate an active usage every 3 month, the web app will keep running.)

@@ -8,6 +8,10 @@ tags:
   - linked list
 ---
 
+This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.
+
+<!-- more -->
+
 # What is LRU
 
 Least recently used (LRU) is a cache replacement policy. Here is a description of this policy, putting into the shortest words:

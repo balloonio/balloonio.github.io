@@ -7,6 +7,10 @@ tags:
 - data structure
 ---
 
+This is a complete knowledge guide on hashmap.
+
+<!-- more -->
+
 # 综述
 
 粗略的说,哈希表是一种读写均为常数级别时间复杂度的数据结构,支持`O(1)`时间添加删除和修改,数据之间无序. 为什么是粗略地说,因为严格来讲,其增删查改的时间复杂度与 key 的大小成正相关,这是由于哈希函数生成哈希值的时间复杂度为`O(size of key)`.  
