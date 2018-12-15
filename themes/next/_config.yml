@@ -60,7 +60,7 @@ rss:
 footer:
   # Specify the date when the site was setup.
   # If not defined, current year will be used.
-  #since: 2015
+  since: 2018
 
   # Icon between year and copyright info.
   icon:
@@ -119,8 +119,9 @@ index_with_subtitle: false
 menu:
   home: / || home
   #about: /about/ || user
+  Projects: /categories/projects/ || coffee
   tags: /tags/ || tags
-  #categories: /categories/ || th
+  categories: /categories/ || th-large
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
@@ -137,9 +138,9 @@ menu_settings:
 
 # Schemes
 #scheme: Muse
-#scheme: Mist
+scheme: Mist
 #scheme: Pisces
-scheme: Gemini
+#scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -156,7 +157,7 @@ site_state: true
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/bolunzhang || github
-  E-Mail: mailto:rzhangbolun@gmail.com || envelope
+  E-Mail: mailto:rzhangbolun@gmail.com || at
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -196,7 +197,7 @@ avatar:
   # You can also use other linking images.
   url: /assets/avatar.jpg
   # If true, the avatar would be dispalyed in circle.
-  rounded: true
+  rounded: false
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
   opacity: 1
   # If true, the avatar would be rotated with the cursor.
@@ -381,7 +382,7 @@ cheers_enabled: true
 # Arial | Tahoma | Helvetica | Times New Roman | Courier New | Verdana | Georgia | Palatino | Garamond | Comic Sans MS | Trebuchet MS
 # ---------------------------------------------------------------
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default).
   host:
@@ -394,7 +395,7 @@ font:
   # Global font settings used for all elements in <body>.
   global:
     external: true
-    family: Lato
+    family: Courier New
     size:
 
   # Font settings for Headlines (H1, H2, H3, H4, H5, H6).

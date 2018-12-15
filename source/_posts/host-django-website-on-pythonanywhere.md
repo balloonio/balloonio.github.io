@@ -5,6 +5,8 @@ tags:
   - front end
   - web
   - django
+categories:
+  - projects
 ---
 
 Have you ever wondered how to set up your Django app on a real website? This blog shows you how to easily host a Django web app on PythongAnywhere for free.

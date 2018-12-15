@@ -5,6 +5,8 @@ tags:
   - front end
   - web
   - http
+categories:
+  - fundamentals
 ---
 
 Coming from a non-CS background, HTTP always seems to be a mystery to me. As I learned more about front-end technologies, I started to realize that understanding HTTP protocal is really important. Working on a Django project without understanding how HTTP works is like writing an assembly program without understanding CPU architecture - it is very easy to get lost. Fortunately, I came across some very helpful materials. Here I want to share my study notes on those materials.

@@ -2,9 +2,11 @@
 title: What is Hashmap?
 date: 2018-11-04 01:28:03
 tags:
-- algorithm
-- hashmap
-- data structure
+  - algorithm
+  - hashmap
+  - data structure
+categories:
+  - fundamentals
 ---
 
 This is a complete knowledge guide on hashmap.

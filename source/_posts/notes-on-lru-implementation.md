@@ -6,6 +6,8 @@ tags:
   - data structure
   - hashmap
   - linked list
+categories:
+  - online judge
 ---
 
 This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.

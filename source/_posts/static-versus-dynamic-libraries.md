@@ -6,6 +6,9 @@ tags:
   - build
   - compiler
   - linker
+date: 2018-12-14 18:50:00
+categories:
+  - fundamentals
 ---
 
 This page discusses the fundamental differences and tradeoffs between using static and dynamic libraries for application development, along with specific considerations for why static linking is often chosen for applications at some big companies.
@@ -19,8 +22,7 @@ This page discusses the fundamental differences and tradeoffs between using stat
 Just an archive (like a .tar or .zip) of individual .o files, created by the ar tool.
 When linking into an exexutable, the linker extracts and links those objects which contain symbols referenced by the compiled code.
 
-- Historically, all of the object is loaded, so all its dependencies must also be, even if the call chain is never invoked.
-  - With advanced [function-level sections](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format), only the individual functions and variables are added to the executable
+- Historically, all of the object is loaded, so all its dependencies must also be, even if the call chain is never invoked. (With advanced [function-level sections](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format), only the individual functions and variables are added to the executable.)
 - Cleaner code that organizes disparate code into different source files is still better than relying on the linker.
 
 # Dynamic Libraries (`.so` files)

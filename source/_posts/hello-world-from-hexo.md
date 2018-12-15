@@ -6,6 +6,8 @@ tags:
   - front end
   - web
 date: 2018-10-30 08:00:36
+categories:
+  - projects
 ---
 
 搭建博客后的第一篇日志,很自然地想要记录下搭建的过程. 本文旨在用最简短的篇幅教你用Hexo和GH Pages快速搭建博客.

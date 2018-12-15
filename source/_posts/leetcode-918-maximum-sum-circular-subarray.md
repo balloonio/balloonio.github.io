@@ -9,6 +9,8 @@ tags:
   - deque
   - pointer
 date: 2018-11-03 20:35:56
+categories:
+  - online judge
 ---
 
 Given a circular array C of integers represented by A, find the maximum possible sum of a non-empty subarray of C.

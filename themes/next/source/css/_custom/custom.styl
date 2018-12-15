@@ -7,7 +7,7 @@ $purdue-dark-grey = #373A36
 
 .post-body { text-align: justify }
 
-/*
+
 .sidebar-toggle-line {
   position: relative;
   display: inline-block;
@@ -19,16 +19,16 @@ $purdue-dark-grey = #373A36
 
   &:first-child { margin-top: 0; }
 }
-*/
 
+// Social network icons
 .links-of-author a,
 .links-of-author .exturl {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-bottom-color: $black-light;
-  font-size: 13px;
+  border-bottom-color: $grey-dark;
+  font-size: 20px;
   if hexo-config('social_icons.transition') { the-transition(); }
 
   &:before {
@@ -36,9 +36,12 @@ $purdue-dark-grey = #373A36
     vertical-align: middle;
     margin-right: 3px;
     content: " ";
-    width: 5px;
-    height: 5px;
+    width: 0px;
+    height: 0px;
     border-radius: 50%;
-    background: $black-light;
+    background: $grey-dark;
   }
+}
+a, span.exturl {
+  border-bottom: 0px
 }

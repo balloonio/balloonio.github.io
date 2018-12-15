@@ -1,4 +1,4 @@
-/*
+
 // Purdue color
 $purdue-gold = #CEB888
 $purdue-grey = #9D968D
@@ -7,15 +7,14 @@ $purdue-dark-grey = #373A36
 // Sidebar
 // Variables for sidebar section elements.
 // --------------------------------------------------
-
-$site-author-name-margin              = 5px 0 0
-$site-author-name-color               = $purdue-gold
-$site-author-name-align               = center
-$site-author-name-weight              = bold
-
-$sidebar-nav-color                    = $purdue-dark-grey
-$sidebar-nav-hover-color              = $purdue-grey
+$sidebar-nav-color                    = $purdue-grey
+$sidebar-nav-hover-color              = $whitesmoke
 $sidebar-highlight                    = $purdue-gold
+
+$toc-link-color                       = $grey-dark
+$toc-link-border-color                = $black-light
+$toc-link-hover-color                 = $whitesmoke
+$toc-link-hover-border-color          = $whitesmoke
 
 $toc-link-active-color                = $purdue-gold
 $toc-link-active-border-color         = $purdue-gold
@@ -30,12 +29,23 @@ $b2t-position-right           = 30px
 $b2t-font-size                = 12px
 $b2t-color                    = $purdue-gold
 $b2t-bg-color                 = $black-deep
-*/
+
+// Author avatar and captions
+$site-author-image-padding            = 0px
+$site-author-image-width              = 120px
+$site-author-image-height             = auto
+$site-author-image-border-width       = 0px
+$site-author-image-border-color       = $black-dim
 
 $site-author-name-margin              = 5px 0 0
-$site-author-name-color               = $black-light
+$site-author-name-color               = $purdue-gold
 $site-author-name-align               = center
-$site-author-name-weight              = bold
+$site-author-name-weight              = light
+
+$site-description-font-size           = 14px
+$site-description-color               = $purdue-gold
+$site-description-margin-top          = 5px
+$site-description-align               = center
 
 .site-author-name {
   margin: $site-author-name-margin;
@@ -43,3 +53,10 @@ $site-author-name-weight              = bold
   color: $site-author-name-color;
   font-weight: $site-author-name-weight;
 }
+
+// Font Weight
+$font-weight-lighter      = 100
+$font-weight-light        = 200
+$font-weight-normal       = 300
+$font-weight-bold         = 400
+$font-weight-bolder       = 500
