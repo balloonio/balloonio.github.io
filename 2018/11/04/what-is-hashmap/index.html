@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Courier New:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="This is a complete knowledge guide on hashmap.">
+<meta name="keywords" content="algorithm,hashmap,data structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What is Hashmap?">
+<meta property="og:url" content="http://bolunzhang.me/2018/11/04/what-is-hashmap/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="This is a complete knowledge guide on hashmap.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T19:56:52.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="What is Hashmap?">
+<meta name="twitter:description" content="This is a complete knowledge guide on hashmap.">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bolunzhang.me/2018/11/04/what-is-hashmap/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>What is Hashmap? | blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-projects">
+    <a href="/categories/projects/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>Projects</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th-large"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2018/11/04/what-is-hashmap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="B01un">
+      <meta itemprop="description" content="Stay hungry. Stay foolish.">
+      <meta itemprop="image" content="/assets/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">What is Hashmap?
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-04 01:28:03" itemprop="dateCreated datePublished" datetime="2018-11-04T01:28:03-04:00">2018-11-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-22 15:56:52" itemprop="dateModified" datetime="2019-03-22T15:56:52-04:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/fundamentals/" itemprop="url" rel="index"><span itemprop="name">fundamentals</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This is a complete knowledge guide on hashmap.</p>
+<a id="more"></a>
+<h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>粗略的说,哈希表是一种读写均为常数级别时间复杂度的数据结构,支持<code>O(1)</code>时间添加删除和修改,数据之间无序. 为什么是粗略地说,因为严格来讲,其增删查改的时间复杂度与 key 的大小成正相关,这是由于哈希函数生成哈希值的时间复杂度为<code>O(size of key)</code>.<br>哈希表的使用场景通常具有以下特点</p>
+<ul>
+<li>快速增删查改</li>
+<li>对有序性无要求</li>
+</ul>
+<h1 id="哈希表的实现"><a href="#哈希表的实现" class="headerlink" title="哈希表的实现"></a>哈希表的实现</h1><h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><blockquote><p>在数据结构中，哈希函数是用来将一个字符串（或任何其他类型）转化为小于哈希表大小且大于等于零的整数。一个好的哈希函数可以尽可能少地产生冲突。</p>
+<footer><strong>LintCode</strong><cite><a href="https://www.lintcode.com/problem/hash-function/description" target="_blank" rel="noopener">Hash Function</a></cite></footer></blockquote>
+<p>&nbsp;<br>哈希函数的目的是作为一个映射,将key对应到一个地址空间上,通常的哈希函数具有如下特点.</p>
+<ul>
+<li>快速生成哈希值,时间复杂度为<code>O(size of key)</code></li>
+<li>生成哈希值在一确定区间内,因为需要确切的地址空间范围来存储这些数据</li>
+<li>生成的哈希值越随机越好,因为哈希值越随机就越与 key 无关,这就使得大量的数据可以不收 key 影响的情况下,趋于平均地分摊在整个地址空间范围内</li>
+<li>同一个 key 一定对应同一个哈希值,不同的 key 不一定对应到不同的哈希值,换句话说有可能有哈希值的冲突. (这和高中数学意义上的函数其实一样,一个 x 对应一个 y ,多个 x 有可能对应到同样的 y )</li>
+</ul>
+<p>哈希值通常是一个固定的且无规律的整数. (哈希类算法还有 sha1 sha2 等 security 类的哈希. 这些哈希和这里所讲的哈希有一些区别,这些 security 类哈希往往生成比较慢,生成的哈希值是一个字符串而非整数,并且要求不能有哈希值的冲突.)</p>
+<p>最常见的哈希函数就是转换成质数进制,然后对哈希表的大小进行取模.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># key: string</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hash</span><span class="params">(key, HASH_SIZE)</span>:</span></span><br><span class="line">    hashcode = <span class="number">0</span></span><br><span class="line">    HASH_PRIME = <span class="number">31</span></span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> key:</span><br><span class="line">        hashcode *= HASH_PRIME</span><br><span class="line">        hashcode += int(char)</span><br><span class="line">        hashcode %= HASH_SIZE</span><br><span class="line">    <span class="keyword">return</span> hashcode</span><br></pre></td></tr></table></figure>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组是在内存里一段连续的地址空间,所以数组往往就是哈希表的实际存储介质. 一个 key 通过哈希函数算出一个哈希值, key 对应的 value 就直接存储在以这个哈希值为 index 的对应数组元素的位置.</p>
+<h1 id="哈希冲突与解决办法"><a href="#哈希冲突与解决办法" class="headerlink" title="哈希冲突与解决办法"></a>哈希冲突与解决办法</h1><p>冲突 Collision ,是说两个不同的 key 经过哈希函数的计算后,得到了两个相同的值. 解决冲突的方法,主要有两种:</p>
+<ul>
+<li>开哈希 Open Hashing 是指哈希表所基于的数组中,每个位置是一个 Linked List 的头结点. 这样冲突的<code>&lt;key, value&gt;</code>二元组,就都放在同一个链表中</li>
+<li>闭哈希 Closed Hashing 是指在发生冲突的时候,后来的元素,往下一个位置去找空位.</li>
+</ul>
+<p>业内通常使用开哈希. 开哈希 Open Hashing 又叫做单独链表 Separate Chaining , 闭哈希 Closed Hashing 又叫做开放地址 Open Addressing .</p>
+<blockquote><ul>
+<li>开放散列（open hashing）/ 拉链法（针对桶链结构）<ul>
+<li>优点：<ul>
+<li>对于记录总数频繁可变的情况，处理的比较好（也就是避免了动态调整的开销）</li>
+<li>由于记录存储在结点中，而结点是动态分配，不会造成内存的浪费，所以尤其适合那种记录本身尺寸（size）很大的情况，因为此时指针的开销可以忽略不计了</li>
+<li>删除记录时，比较方便，直接通过指针操作即可</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>存储的记录是随机分布在内存中的，这样在查询记录时，相比结构紧凑的数据类型（比如数组），哈希表的跳转访问会带来额外的时间开销</li>
+<li>如果所有的 key-value 对是可以提前预知，并之后不会发生变化时（即不允许插入和删除），可以人为创建一个不会产生冲突的完美哈希函数（perfect hash function），此时封闭散列的性能将远高于开放散列</li>
+<li>由于使用指针，记录不容易进行序列化（serialize）操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>封闭散列（closed hashing）/ 开放定址法<ul>
+<li>优点：<ul>
+<li>记录更容易进行序列化（serialize）操作</li>
+<li>如果记录总数可以预知，可以创建完美哈希函数，此时处理数据的效率是非常高的</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>存储记录的数目不能超过桶数组的长度，如果超过就需要扩容，而扩容会导致某次操作的时间成本飙升，这在实时或者交互式应用中可能会是一个严重的缺陷</li>
+<li>使用探测序列，有可能其计算的时间成本过高，导致哈希表的处理性能降低</li>
+<li>由于记录是存放在桶数组中的，而桶数组必然存在空槽，所以当记录本身尺寸（size）很大并且记录总数规模很大时，空槽占用的空间会导致明显的内存浪费</li>
+<li>删除记录时，比较麻烦。比如需要删除记录a，记录b是在a之后插入桶数组的，但是和记录a有冲突，是通过探测序列再次跳转找到的地址，所以如果直接删除a，a的位置变为空槽，而空槽是查询记录失败的终止条件，这样会导致记录b在a的位置重新插入数据前不可见，所以不能直接删除a，而是设置删除标记。这就需要额外的空间和操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<footer><strong>灰杉树</strong><cite><a href="https://www.zhihu.com/question/47258682/answer/134625235" target="_blank" rel="noopener">哈希表针对冲突的两种方式优缺点是什么?</a></cite></footer></blockquote>
+<h1 id="重哈希-Rehashing"><a href="#重哈希-Rehashing" class="headerlink" title="重哈希 Rehashing"></a>重哈希 Rehashing</h1><blockquote><p>哈希表容量的大小在一开始是不确定的。如果哈希表存储的元素太多（如超过容量的十分之一），我们应该将哈希表容量扩大一倍，并将所有的哈希值重新安排。</p>
+<footer><strong>LintCode</strong><cite><a href="https://www.lintcode.com/problem/rehashing/description" target="_blank" rel="noopener">Rehashing</a></cite></footer></blockquote>
+<h2 id="重哈希的实现"><a href="#重哈希的实现" class="headerlink" title="重哈希的实现"></a>重哈希的实现</h2><p>重哈希时由于<code>HASH_SIZE</code>变了,导致所有 key 的哈希值都会有较大变化,所以此时必须开辟新空间,并且重新计算<strong>所有</strong> key 的哈希值. 因此,重新哈希是一个很慢的过程.</p>
+<h2 id="重哈希条件"><a href="#重哈希条件" class="headerlink" title="重哈希条件"></a>重哈希条件</h2><p>当哈希表里存储的是元素数量已经接近哈希表大小的时候,就需要进行重哈希. 这个比例可以是10%,也可以是90%. 具体多大取决于空间使用率和哈希表读写效率之间的 tradeoff .</p>
+<ul>
+<li>如果过早重哈希,比如说已占用10%空间的时候就进行扩容重哈希,那么开辟的空间远大于当前数据量,空间使用较为浪费.</li>
+<li>如果过晚重哈希,比如说已占用90%空间的时候才进行扩容重哈希,那么此时哈希表里可能已存在大量的哈希值冲突,其读写效率都已经受到较大影响.</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+            <a href="/tags/hashmap/" rel="tag"># hashmap</a>
+          
+            <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/03/leetcode-918-maximum-sum-circular-subarray/" rel="next" title="LeetCode 918 - Maximum Sum Circular Subarray">
+                <i class="fa fa-chevron-left"></i> LeetCode 918 - Maximum Sum Circular Subarray
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/08/notes-on-lru-implementation/" rel="prev" title="Notes on LRU implementation">
+                Notes on LRU implementation <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/avatar.jpg" alt="B01un">
+            
+              <p class="site-author-name" itemprop="name">B01un</p>
+              <p class="site-description motion-element" itemprop="description">Stay hungry. Stay foolish.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bolunzhang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github-alt"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:rzhangbolun@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-at"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.linkedin.com/in/bolun-zhang-io" target="_blank" title="LinkedIn"><i class="fa fa-fw fa-linkedin"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/bolooon" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希表的实现"><span class="nav-number">2.</span> <span class="nav-text">哈希表的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希函数"><span class="nav-number">2.1.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">2.2.</span> <span class="nav-text">数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希冲突与解决办法"><span class="nav-number">3.</span> <span class="nav-text">哈希冲突与解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重哈希-Rehashing"><span class="nav-number">4.</span> <span class="nav-text">重哈希 Rehashing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重哈希的实现"><span class="nav-number">4.1.</span> <span class="nav-text">重哈希的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重哈希条件"><span class="nav-number">4.2.</span> <span class="nav-text">重哈希条件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">B01un</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('Copied')
+          else $(this).text('Copy failed')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('Copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+  
+</body>
+</html>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Courier New:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.">
+<meta name="keywords" content="algorithm,hashmap,data structure,linked list">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes on LRU implementation">
+<meta property="og:url" content="http://bolunzhang.me/2018/11/08/notes-on-lru-implementation/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T19:56:52.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes on LRU implementation">
+<meta name="twitter:description" content="This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bolunzhang.me/2018/11/08/notes-on-lru-implementation/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Notes on LRU implementation | blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-projects">
+    <a href="/categories/projects/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>Projects</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th-large"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2018/11/08/notes-on-lru-implementation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="B01un">
+      <meta itemprop="description" content="Stay hungry. Stay foolish.">
+      <meta itemprop="image" content="/assets/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Notes on LRU implementation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-08 00:43:45" itemprop="dateCreated datePublished" datetime="2018-11-08T00:43:45-05:00">2018-11-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-22 15:56:52" itemprop="dateModified" datetime="2019-03-22T15:56:52-04:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/online-judge/" itemprop="url" rel="index"><span itemprop="name">online judge</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This blog covers a detailed implementation on LRU, as well as why such data structure is being used. In the end, it also covers how such data structure can be used to solve another similar problem.</p>
+<a id="more"></a>
+<h1 id="What-is-LRU"><a href="#What-is-LRU" class="headerlink" title="What is LRU"></a>What is LRU</h1><p>Least recently used (LRU) is a cache replacement policy. Here is a description of this policy, putting into the shortest words:</p>
+<blockquote><p>Discards the least recently used items first.</p>
+<footer><strong>Wikipedia</strong><cite><a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">Least recently used (LRU)</a></cite></footer></blockquote>
+<p>&nbsp;<br>When people talk about LRU cache, really what they are referring to is any cache that adopts this cache replacement policy. For example, here is the problem requirement for an LRU cache from LeetCode:</p>
+<blockquote><p>Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.</p>
+<p><code>get(key)</code> - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br><code>put(key, value)</code> - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<footer><strong>LeetCode</strong><cite><a href="https://leetcode.com/problems/lru-cache/description/" target="_blank" rel="noopener">LRU Cache</a></cite></footer></blockquote>
+<h1 id="Cracking-the-problem"><a href="#Cracking-the-problem" class="headerlink" title="Cracking the problem"></a>Cracking the problem</h1><p>For any of the requirements, let’s see if it is possible to achieve constant O(1) time complexity, which is the optimal time complexity</p>
+<ul>
+<li>Insert, update or remove a key-value pair if needed</li>
+</ul>
+<p>The most common data structure that is able to support O(1) insertion and removal is hashmap. Therefore, very intuitively, a <strong>hashmap</strong> can be used here to somehow store the key to the value.<br>However, this is not the only requirement here, and let’s see how that can be handled.</p>
+<ul>
+<li>When capacity is reached, new insertion will evict the least used item.</li>
+</ul>
+<p>In order to remove the least used item when cache is full, apparently the data structure must be able to figure out which one is the most aged item. This requires the data structure to preserve some sort of time sequence. Since hashmap doesn’t preserve any order or sequence, something else is needed here. Array, heap, tree set, linked list, and double linked list are all common data structures that support order or sequence; yet only one of them supports O(1) insertion and removal - that is <strong>double linked list</strong>.</p>
+<p>Therefore, the final idea is to use a double linked list to store the items in time sequence, while at the same time to use a hashmap to keep track of a key to its item node in the list so that O(1) insertion and removal based on the key is achieved.</p>
+<h1 id="Show-me-the-code"><a href="#Show-me-the-code" class="headerlink" title="Show me the code"></a>Show me the code</h1><p>A generic double linked list that supports insertion and removal by node:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.value = value</span><br><span class="line">        self.prev = <span class="literal">None</span></span><br><span class="line">        self.nxt = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NodeList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line">        self.head = <span class="literal">None</span></span><br><span class="line">        self.tail = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.size == <span class="number">1</span>:</span><br><span class="line">            self.head = node</span><br><span class="line">            self.tail = node</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            node.nxt = self.head</span><br><span class="line">            self.head.prev = node</span><br><span class="line">            self.head = node</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.head == node:</span><br><span class="line">            self.head = node.nxt</span><br><span class="line">        <span class="keyword">if</span> self.tail == node:</span><br><span class="line">            self.tail = node.prev</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> node.prev <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            node.prev.nxt = node.nxt</span><br><span class="line">        <span class="keyword">if</span> node.nxt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            node.nxt.prev = node.prev</span><br><span class="line"></span><br><span class="line">        node.prev = <span class="literal">None</span></span><br><span class="line">        node.nxt = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>A LRU implementation using the above double linked list and a hashmap:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity)</span>:</span></span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.key2node = &#123;&#125;</span><br><span class="line">        self.nodelist = NodeList()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> self.key2node:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        node = self.key2node[key]</span><br><span class="line">        self.nodelist.remove(node)</span><br><span class="line">        self.nodelist.insert(node)</span><br><span class="line">        <span class="keyword">return</span> node.value</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> self.key2node:</span><br><span class="line">            old_node = self.key2node[key]</span><br><span class="line">            self.nodelist.remove(old_node)</span><br><span class="line">        </span><br><span class="line">        new_node = Node(key, value)</span><br><span class="line">        self.key2node[key] = new_node</span><br><span class="line">        self.nodelist.insert(new_node)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># evict the least used item if cache is over capacity</span></span><br><span class="line">        <span class="keyword">if</span> self.nodelist.size &gt; self.capacity:</span><br><span class="line">            least_used = self.nodelist.tail</span><br><span class="line">            self.key2node.pop(least_used.key)</span><br><span class="line">            self.nodelist.remove(least_used)</span><br></pre></td></tr></table></figure>
+<h1 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h1><p>Testcases for our LRU implementation using unittest:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUTest</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_empty</span><span class="params">(self)</span>:</span></span><br><span class="line">        cache = LRUCache(<span class="number">0</span>)</span><br><span class="line">        self.assertIsNone(cache.get(<span class="string">"key0"</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_singleitem</span><span class="params">(self)</span>:</span></span><br><span class="line">        cache = LRUCache(<span class="number">1</span>)</span><br><span class="line">        cache.put(<span class="string">"key0"</span>, <span class="string">"val0"</span>)</span><br><span class="line">        self.assertEqual(cache.get(<span class="string">"key0"</span>), <span class="string">"val0"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_evict</span><span class="params">(self)</span>:</span></span><br><span class="line">        cache = LRUCache(<span class="number">1</span>)</span><br><span class="line">        cache.put(<span class="string">"key0"</span>, <span class="string">"val0"</span>)</span><br><span class="line">        cache.put(<span class="string">"key1"</span>, <span class="string">"val1"</span>)</span><br><span class="line">        self.assertIsNone(cache.get(<span class="string">"key0"</span>))</span><br><span class="line">        self.assertEqual(cache.get(<span class="string">"key1"</span>), <span class="string">"val1"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_bigput</span><span class="params">(self)</span>:</span></span><br><span class="line">        size = random.randint(<span class="number">100</span>, <span class="number">1000</span>)</span><br><span class="line">        gensize = size * <span class="number">5</span></span><br><span class="line">        control = [<span class="literal">None</span>] * size</span><br><span class="line">        cache = LRUCache(size)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gensize):</span><br><span class="line">            randkey = random.random() * <span class="number">1000</span></span><br><span class="line">            randval = random.random() * <span class="number">100</span></span><br><span class="line">            cache.put(randkey, randval)</span><br><span class="line">            control[i % size] = (randkey, randval)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> key, val <span class="keyword">in</span> control:</span><br><span class="line">            self.assertEqual(cache.get(key), val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+<h1 id="Similar-problem"><a href="#Similar-problem" class="headerlink" title="Similar problem"></a>Similar problem</h1><p>Now let’s examine this implementation closely - hashmap is used to achieve O(1) insertion and removal by key, while double linked list is used to preserve the sequence. Therefore, it is natural to ask the question - can such data structure be used to solve other problems that also requires fast insertion and removal together with sequencing?</p>
+<p>The answer is yes, and here is an example:</p>
+<h2 id="Weighted-random-cache"><a href="#Weighted-random-cache" class="headerlink" title="Weighted random cache"></a>Weighted random cache</h2><p>Design a data structure to hold objects with a corresponding integer weight. It should support:</p>
+<ul>
+<li>Obtain an object randomly with probability equal to (weight of the element) / (sum of the weights).</li>
+<li>Set an object-weight pair. If the object is already in the structure, its weight will be updated. Otherwise, the object will be inserted and set to its weight. If the weight is zero, the object can be removed.</li>
+</ul>
+<h2 id="Cracking-the-problem-1"><a href="#Cracking-the-problem-1" class="headerlink" title="Cracking the problem"></a>Cracking the problem</h2><p>Similar to LRU cache, this data structure requires fast insertion and removal, which leads to hashmap. In addition, it requires a weighted random functionality. Usually with weigthted random questions, a prefix sum will be used to calculate the cumulative weight so far. However, in order to calculate the cumulative weight, the cache has to be iterated in a certain sequence. Thus, it leads to a linked list.</p>
+<h2 id="Show-me-the-code-1"><a href="#Show-me-the-code-1" class="headerlink" title="Show me the code"></a>Show me the code</h2><p>A generic double linked list that is similar to the one from LRU cache, except the insertion takes place at the tail instead of at the head:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, weight)</span>:</span></span><br><span class="line">        self.key = key  <span class="comment"># object key or id</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.prev = <span class="literal">None</span></span><br><span class="line">        self.nxt = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NodeList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.head = <span class="literal">None</span></span><br><span class="line">        self.tail = <span class="literal">None</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># blank list</span></span><br><span class="line">        <span class="keyword">if</span> self.head <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> self.tail <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.head = node</span><br><span class="line">            self.tail = node</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># something in there</span></span><br><span class="line">        node.prev = self.tail</span><br><span class="line">        self.tail.nxt = node</span><br><span class="line">        self.tail = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.head == node:</span><br><span class="line">            self.head = node.nxt</span><br><span class="line">        <span class="keyword">if</span> self.tail == node:</span><br><span class="line">            self.tail = node.prev</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> node.prev <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            node.prev.nxt = node.nxt</span><br><span class="line">        <span class="keyword">if</span> node.nxt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            node.nxt.prev = node.prev</span><br><span class="line">        </span><br><span class="line">        node.prev = <span class="literal">None</span></span><br><span class="line">        node.nxt = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>A weighted random implementation with O(1) <code>setObjectWeight(key, weight)</code> and O(n) <code>getRandom()</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeightRandom</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.key2node = &#123;&#125;  <span class="comment"># object key or id : the node contains the object info (weight, id)</span></span><br><span class="line">        self.nodelist = NodeList()</span><br><span class="line">        self.totalsum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># O(1)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setObjectWeight</span><span class="params">(self, obj_key, weight)</span>:</span></span><br><span class="line">        <span class="comment"># not in map and also try to zero weight, no op</span></span><br><span class="line">        <span class="keyword">if</span> weight == <span class="number">0</span> <span class="keyword">and</span> obj_key <span class="keyword">not</span> <span class="keyword">in</span> self.key2node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># not in map, insert node</span></span><br><span class="line">        <span class="keyword">if</span> obj_key <span class="keyword">not</span> <span class="keyword">in</span> self.key2node:</span><br><span class="line">            node = Node(obj_key, weight)</span><br><span class="line">            self.key2node[obj_key] = node</span><br><span class="line">            self.nodelist.insert(node)</span><br><span class="line">            self.totalsum += weight</span><br><span class="line">        <span class="comment"># in map, update</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.totalsum += weight - self.key2node[obj_key].weight</span><br><span class="line">            self.key2node[obj_key].weight = weight</span><br><span class="line"></span><br><span class="line">            <span class="comment"># if weight is zero, try to remove</span></span><br><span class="line">            <span class="keyword">if</span> weight == <span class="number">0</span>:</span><br><span class="line">                self.nodelist.remove(self.key2node[obj_key])</span><br><span class="line">                self.key2node.pop(obj_key)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># linear O(n)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getRandom</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.totalsum == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        randres = random.randint(<span class="number">1</span>, self.totalsum)</span><br><span class="line">        <span class="comment"># loop through list to find the first node that is greater than or equal to randres</span></span><br><span class="line">        cumsum = <span class="number">0</span></span><br><span class="line">        node = self.nodelist.head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            cumsum += node.weight</span><br><span class="line">            <span class="keyword">if</span> cumsum &gt;= randres:</span><br><span class="line">                <span class="keyword">return</span> node.key  <span class="comment"># obj key</span></span><br><span class="line">            node = node.nxt</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h2 id="Testing-1"><a href="#Testing-1" class="headerlink" title="Testing"></a>Testing</h2><p>Testing code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wr = WeightRandom()</span><br><span class="line">wr.setObjectWeight(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">wr.setObjectWeight(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">wr.setObjectWeight(<span class="number">2</span>, <span class="number">0</span>)</span><br><span class="line">wr.setObjectWeight(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    print(wr.getRandom())</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+            <a href="/tags/hashmap/" rel="tag"># hashmap</a>
+          
+            <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          
+            <a href="/tags/linked-list/" rel="tag"># linked list</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/04/what-is-hashmap/" rel="next" title="What is Hashmap?">
+                <i class="fa fa-chevron-left"></i> What is Hashmap?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/05/host-django-website-on-pythonanywhere/" rel="prev" title="Host Django website on PythonAnywhere">
+                Host Django website on PythonAnywhere <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/avatar.jpg" alt="B01un">
+            
+              <p class="site-author-name" itemprop="name">B01un</p>
+              <p class="site-description motion-element" itemprop="description">Stay hungry. Stay foolish.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bolunzhang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github-alt"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:rzhangbolun@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-at"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.linkedin.com/in/bolun-zhang-io" target="_blank" title="LinkedIn"><i class="fa fa-fw fa-linkedin"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/bolooon" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-LRU"><span class="nav-number">1.</span> <span class="nav-text">What is LRU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cracking-the-problem"><span class="nav-number">2.</span> <span class="nav-text">Cracking the problem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Show-me-the-code"><span class="nav-number">3.</span> <span class="nav-text">Show me the code</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing"><span class="nav-number">4.</span> <span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Similar-problem"><span class="nav-number">5.</span> <span class="nav-text">Similar problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Weighted-random-cache"><span class="nav-number">5.1.</span> <span class="nav-text">Weighted random cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cracking-the-problem-1"><span class="nav-number">5.2.</span> <span class="nav-text">Cracking the problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-me-the-code-1"><span class="nav-number">5.3.</span> <span class="nav-text">Show me the code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-1"><span class="nav-number">5.4.</span> <span class="nav-text">Testing</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">B01un</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('Copied')
+          else $(this).text('Copy failed')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('Copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+  
+</body>
+</html>

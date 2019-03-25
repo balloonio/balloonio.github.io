@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Courier New:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on rep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Manage Multiple GitHub Accounts on the Same Laptop">
+<meta property="og:url" content="http://bolunzhang.me/2019/03/23/manage-multiple-github-accounts-on-the-same-laptop/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on rep">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-25T22:30:47.183Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Manage Multiple GitHub Accounts on the Same Laptop">
+<meta name="twitter:description" content="Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on rep">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bolunzhang.me/2019/03/23/manage-multiple-github-accounts-on-the-same-laptop/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Manage Multiple GitHub Accounts on the Same Laptop | blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-projects">
+    <a href="/categories/projects/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>Projects</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th-large"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2019/03/23/manage-multiple-github-accounts-on-the-same-laptop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="B01un">
+      <meta itemprop="description" content="Stay hungry. Stay foolish.">
+      <meta itemprop="image" content="/assets/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Manage Multiple GitHub Accounts on the Same Laptop
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-23 22:56:24" itemprop="dateCreated datePublished" datetime="2019-03-23T22:56:24-04:00">2019-03-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-25 18:30:47" itemprop="dateModified" datetime="2019-03-25T18:30:47-04:00">2019-03-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tutorial/" itemprop="url" rel="index"><span itemprop="name">tutorial</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on repos from both accounts on one single laptop? This blog shows you how to achieve that with SSH.</p>
+<a id="more"></a>
+<h1 id="Generate-SSH-Key-Pairs"><a href="#Generate-SSH-Key-Pairs" class="headerlink" title="Generate SSH Key Pairs"></a>Generate SSH Key Pairs</h1><p>Create a SSH key public/private key pair for each GitHub account that you would like to manage on the same pc. Let’s start the example with personal account.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"bolun.zhang@personal_github_account_email.com"</span></span><br></pre></td></tr></table></figure>
+<p>This creates a new ssh key, using the provided email as a label:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; Generating public/private rsa key pair.</span><br></pre></td></tr></table></figure>
+<p>When you’re prompted to “Enter a file in which to save the key”, store your key as <code>~/.ssh/id_rsa_personal</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter a file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/you/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
+<p>(Optional) At the prompt, type a secure passphrase.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; Enter passphrase (empty <span class="keyword">for</span> no passphrase): [Type a passphrase]</span><br><span class="line">&gt; Enter same passphrase again: [Type passphrase again]</span><br></pre></td></tr></table></figure>
+<p>Now you should have two files under <code>~/.ssh</code> dir - <code>~/.ssh/id_rsa_personal</code> and <code>~/.ssh/id_rsa_personal.pub</code>. They are the private key and the public key for your personal GitHub account. Now, let’s do the same for your company GitHub account. Follow the exactly same procedure as above, but use <code>bolun.zhang@company_github_account_email.com</code> and <code>~/.ssh/id_rsa_company</code> instead. If you did all those correctly, you should see the following files:</p>
+<ul>
+<li><code>~/.ssh/id_rsa_personal</code></li>
+<li><code>~/.ssh/id_rsa_personal.pub</code></li>
+<li><code>~/.ssh/id_rsa_company</code></li>
+<li><code>~/.ssh/id_rsa_company.pub</code></li>
+</ul>
+<h1 id="Add-SSH-Key-to-GitHub"><a href="#Add-SSH-Key-to-GitHub" class="headerlink" title="Add SSH Key to GitHub"></a>Add SSH Key to GitHub</h1><p>Add <code>id_rsa_personal.pub</code> key to your personal GitHub account; add <code>id_rsa_company.pub</code> to your company GitHub account. See the instructions from <a href="https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account" target="_blank" rel="noopener">https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account</a>.</p>
+<h1 id="Add-SSH-Config"><a href="#Add-SSH-Config" class="headerlink" title="Add SSH Config"></a>Add SSH Config</h1><p>Create a new file <code>config</code> under <code>~/.ssh</code> to manage the keys. We need this because we have multiple SSH keys and the system would not know which one to use unless we define the config.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">touch config</span><br></pre></td></tr></table></figure>
+<p>Define the <code>config</code> file as following</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Host workgithub</span><br><span class="line">  HostName github.com</span><br><span class="line">  User git</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_company</span><br><span class="line"></span><br><span class="line">Host mygithub</span><br><span class="line">  HostName github.com</span><br><span class="line">  User git</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_personal</span><br></pre></td></tr></table></figure>
+<h1 id="Update-Git-Config"><a href="#Update-Git-Config" class="headerlink" title="Update Git Config"></a>Update Git Config</h1><p>SSH keys determine the permissions whether you are allowed to clone or commit to a repository. However, rather surprisingly, the authorship of the commits themselves are determined by the user configured in <code>.gitconfig</code>. What this means is you can end up showing as the author of a commit to a repository that you are not permissioned. For example, you have a private repository <em>WORK</em> under your company GitHub account and you have a private repository <em>HOME</em> under your personal GitHub account. Obviously, you company account does not have access to <em>HOME</em> and your personal account does not have access to <em>WORK</em>. As scary as it sounds, if you have your <code>.gitconfig</code> configured to be company account and make commits to <em>HOME</em>, you will end up making the commit without permission issue but with your company account username shown as the author of the commit. (For detailed information, please see <a href="https://help.github.com/en/articles/why-are-my-commits-linked-to-the-wrong-user." target="_blank" rel="noopener">https://help.github.com/en/articles/why-are-my-commits-linked-to-the-wrong-user.</a>) To avoid this issue, make sure your <code>.gitconfig</code> is configured to use personal username/email within personal repositories and company username/email within company repositories. There are multiple ways to achive this. You can create local <code>.gitconfig</code> for each repository. Or alternatively, you can manage multiple <code>.gitconfig</code> files in a similar fashion as what we did with SSH keys. Here is how:</p>
+<p>Create <code>~/.gitconfig-company</code> as following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	name = Bolun Zhang</span><br><span class="line">	email = bolun.zhang@company_github_account_email.com</span><br></pre></td></tr></table></figure>
+<p>Create <code>~/.gitconfig-personal</code> as following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	name = Bolun Zhang</span><br><span class="line">	email = bolun.zhang@personal_github_account_email.com</span><br></pre></td></tr></table></figure>
+<p>Now, change the original <code>~/.gitconfig</code> to the following:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">includeIf <span class="meta-string">"gitdir:~/CompanyRepos/"</span></span>]</span><br><span class="line">    path = ~/.gitconfig-company</span><br><span class="line">[<span class="meta">includeIf <span class="meta-string">"gitdir:~/PersonalRepos/"</span></span>]</span><br><span class="line">    path = ~/.gitconfig-personal</span><br></pre></td></tr></table></figure>
+<p>You can probably already guess what this config file does - it applies different <code>.gitconfig</code> file based on the current directory. Now you just need to organize your workspace so that company repositories are only cloned under <code>~/CompanyRepos/</code> while personal repositories under <code>~/PersonalRepos/</code>.</p>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><p>Now we are completely done with all the set up.</p>
+<p>To clone a work repository:</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">workgithub</span>:<span class="tag">&lt;organization-name&gt;</span>/<span class="tag">&lt;repo-name&gt;</span></span><br></pre></td></tr></table></figure>
+<p>To clone a personal repository:</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">mygithub</span>:<span class="tag">&lt;your-username&gt;</span>/<span class="tag">&lt;repo-name&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="Issues-and-Solutions"><a href="#Issues-and-Solutions" class="headerlink" title="Issues and Solutions"></a>Issues and Solutions</h1><ul>
+<li><p>If you are working on a repository that is already cloned and now have some permission issues after the setup, modify the <code>&lt;repo-dir&gt;/.git/config</code> file to make sure the <code>[remote &quot;origin&quot;]</code> section matches the SSH host.</p>
+<p>  For example, you may have cloned the repository before using HTTP. In that case, the <code>&lt;repo-dir&gt;/.git/config</code> file will show the following as <code>[remote &quot;origin&quot;]</code>:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = https://github.com/&lt;organization-name&gt;/&lt;repo-name.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br></pre></td></tr></table></figure>
+<p>  Change it to the following so that Git knows to use SSH key for permission instead:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = workgithub:&lt;organization-name&gt;/&lt;repo-name&gt;</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>If you are using SSH instead of HTTP. If you have any osxkeychain or credential helper enabled, you might have a cached username for HTTP access. The cached credential sometimes enforces an HTTP connection instead of SSH. A simple solution is to remove any cached GitHub credential.</p>
+</li>
+<li><p>In the SSH config, don’t give the hostname a meaningful resolvable hostname. For example, at the place where we put <code>workgithub</code> as the host name, you can put any name you want but not something like <code>github.com</code>. The reason is sometimes <code>github.com</code> may appear in your personal repository’s <code>&lt;repo-dir&gt;/.git/config</code>; it may resolve into your company SSH key since you are using <code>github.com</code> as your company SSH key host name. This can create permission issues that are hard to detect. One handy tool to debug SSH permission is run <code>ssh -vT git@&lt;host-name&gt;</code>. e.g. <code>ssh -vT git@github.com</code>, <code>ssh -vT git@workgithub</code> or <code>ssh -vT git@mygithub</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/how-to-create-a-todolist-web-app/" rel="next" title="How to create a Todolist web app">
+                <i class="fa fa-chevron-left"></i> How to create a Todolist web app
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/avatar.jpg" alt="B01un">
+            
+              <p class="site-author-name" itemprop="name">B01un</p>
+              <p class="site-description motion-element" itemprop="description">Stay hungry. Stay foolish.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bolunzhang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github-alt"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:rzhangbolun@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-at"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.linkedin.com/in/bolun-zhang-io" target="_blank" title="LinkedIn"><i class="fa fa-fw fa-linkedin"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/bolooon" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Generate-SSH-Key-Pairs"><span class="nav-number">1.</span> <span class="nav-text">Generate SSH Key Pairs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Add-SSH-Key-to-GitHub"><span class="nav-number">2.</span> <span class="nav-text">Add SSH Key to GitHub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Add-SSH-Config"><span class="nav-number">3.</span> <span class="nav-text">Add SSH Config</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update-Git-Config"><span class="nav-number">4.</span> <span class="nav-text">Update Git Config</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Usage"><span class="nav-number">5.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues-and-Solutions"><span class="nav-number">6.</span> <span class="nav-text">Issues and Solutions</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">B01un</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('Copied')
+          else $(this).text('Copy failed')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('Copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+  
+</body>
+</html>

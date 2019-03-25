@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Courier New:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="2do1ist is a todolist app using Django framework. Demo here.">
+<meta name="keywords" content="front end,web,django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to create a Todolist web app">
+<meta property="og:url" content="http://bolunzhang.me/2019/02/18/how-to-create-a-todolist-web-app/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="2do1ist is a todolist app using Django framework. Demo here.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-25T22:32:24.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to create a Todolist web app">
+<meta name="twitter:description" content="2do1ist is a todolist app using Django framework. Demo here.">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bolunzhang.me/2019/02/18/how-to-create-a-todolist-web-app/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>How to create a Todolist web app | blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-projects">
+    <a href="/categories/projects/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>Projects</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th-large"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2019/02/18/how-to-create-a-todolist-web-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="B01un">
+      <meta itemprop="description" content="Stay hungry. Stay foolish.">
+      <meta itemprop="image" content="/assets/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">How to create a Todolist web app
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-18 17:07:27" itemprop="dateCreated datePublished" datetime="2019-02-18T17:07:27-05:00">2019-02-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-25 18:32:24" itemprop="dateModified" datetime="2019-03-25T18:32:24-04:00">2019-03-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/projects/" itemprop="url" rel="index"><span itemprop="name">projects</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>2do1ist is a todolist app using Django framework. Demo <a href="https://2do.pythonanywhere.com/" target="_blank" rel="noopener">here</a>.</p>
+<a id="more"></a>
+<p>This app covers the following topics and practice:</p>
+<ul>
+<li>Django basics (template, url, view and session)</li>
+<li>How to use Django build-in auth app to implement <strong>login</strong> and <strong>logout</strong></li>
+<li>How to implement user <strong>signup</strong></li>
+<li>How to solve <strong>form resubmissions</strong></li>
+<li>How to use Bootstrap (modal and <strong>popover</strong>)</li>
+<li>How to use <strong>Bootstrap grid system</strong></li>
+<li>How to <strong>animate svg logo</strong> with anime.js</li>
+<li>How to <strong>animate progress bar</strong> with progressbar.js</li>
+<li>How to send an <strong>AJAX</strong> request and read the response</li>
+</ul>
+<p>Table of Content</p>
+<ul>
+<li><a href="#setup-environment">Setup Environment</a></li>
+<li><a href="#create-django-project">Create Django Project</a></li>
+<li><a href="#create-django-app">Create Django App</a></li>
+<li><a href="#url-view-and-a-minimal-working-website">URL, View and a Minimal Working Website</a></li>
+<li><a href="#bootstrap">Bootstrap</a></li>
+<li><a href="#html-and-template">HTML and Template</a></li>
+<li><a href="#database-and-model">Database and Model</a></li>
+<li><a href="#http-form-get-and-post">HTTP Form, GET and POST</a></li>
+<li><a href="#addcompletedelete-a-todo">Add/Complete/Delete a Todo</a></li>
+<li><a href="#animate-svg-logo">Animate SVG Logo</a></li>
+<li><a href="#ajax-request">AJAX Request</a></li>
+<li><a href="#about-deployment">About Deployment</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="Setup-Environment"><a href="#Setup-Environment" class="headerlink" title="Setup Environment"></a>Setup Environment</h2><p>Create Python virtual environment:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">python3</span> -m venv myvenv</span><br></pre></td></tr></table></figure>
+<p>Activate it:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span> <span class="regexp">/myvenv/</span>bin<span class="regexp">/activate</span></span><br></pre></td></tr></table></figure>
+<p>Install Django:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 <span class="keyword">install</span> django</span><br></pre></td></tr></table></figure>
+<h2 id="Create-Django-Project"><a href="#Create-Django-Project" class="headerlink" title="Create Django Project"></a>Create Django Project</h2><p>Create a Django project:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject mysite .</span><br></pre></td></tr></table></figure>
+<p>Now let’s look at what startproject created:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── manage.py</span><br><span class="line">└── mysite</span><br><span class="line">    ├── __init__.py</span><br><span class="line">    ├── settings.py</span><br><span class="line">    ├── urls.py</span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>manage.py: A command-line utility that lets you interact with this Django project in various ways.</li>
+<li>The inner mysite/ directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g. mysite.urls).</li>
+<li>mysite/<strong>init</strong>.py: An empty file that tells Python that this directory should be considered a Python package.</li>
+<li>mysite/settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.</li>
+<li>mysite/urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site.</li>
+<li>mysite/wsgi.py: An entry-point for WSGI-compatible web servers to serve your project.</li>
+</ul>
+</blockquote>
+<p>Let’s verify our Django project works:</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> python manage.py runserver</span><br><span class="line"><span class="function"><span class="title">Performing</span></span> <span class="keyword">system</span> checks...</span><br><span class="line"></span><br><span class="line"><span class="keyword">System</span> check identified <span class="keyword">no</span> issues (<span class="number">0</span> silenced).</span><br><span class="line"></span><br><span class="line">You have unapplied migrations; your app may <span class="keyword">not</span> work properly <span class="keyword">until</span> they are applied.</span><br><span class="line">Run <span class="string">'python manage.py migrate'</span> to apply them.</span><br><span class="line"></span><br><span class="line">February <span class="number">01</span>, <span class="number">2019</span> - <span class="number">15</span>:<span class="number">50</span>:<span class="number">53</span></span><br><span class="line">Django version <span class="number">2.1</span>, <span class="keyword">using</span> settings <span class="string">'mysite.settings'</span></span><br><span class="line">Starting development server at http:<span class="comment">//127.0.0.1:8000/</span></span><br><span class="line">Quit the server with CONTROL-C.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: Ignore the warning about unapplied database migrations for now.</p>
+</blockquote>
+<p>Now that the server’s running, visit <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener">http://127.0.0.1:8000/</a> with a Web browser. We see a “Congratulations!” page, with a rocket taking off. It worked!</p>
+<blockquote>
+<p>By default, the runserver command starts the development server on the internal IP at port 8000.</p>
+</blockquote>
+<h2 id="Create-Django-App"><a href="#Create-Django-App" class="headerlink" title="Create Django App"></a>Create Django App</h2><p>Now that our environment – a “project” – is set up, let’s create our todolist app.</p>
+<p>Each application we write in Django consists of a Python package that follows a certain convention. Django comes with a utility that automatically generates the basic directory structure of an app, so we can focus on writing code rather than creating directories.</p>
+<blockquote>
+<p><strong>Projects vs. apps</strong></p>
+<p>What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.</p>
+</blockquote>
+<p>To create our todolist app, make sure we are in the same directory as manage.py and type this command:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> startapp todolist</span><br></pre></td></tr></table></figure>
+<p>Now our directory looks like this:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── manage.py</span><br><span class="line">├── mysite</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── settings.py</span><br><span class="line">│   ├── urls.py</span><br><span class="line">│   └── wsgi.py</span><br><span class="line">└── todolist</span><br><span class="line">    ├── __init__.py</span><br><span class="line">    ├── admin.py</span><br><span class="line">    ├── migrations</span><br><span class="line">    │   └── __init__.py</span><br><span class="line">    ├── models.py</span><br><span class="line">    ├── tests.py</span><br><span class="line">    └── views.py</span><br><span class="line"></span><br><span class="line"><span class="number">4</span> directories, <span class="number">16</span> files</span><br></pre></td></tr></table></figure>
+<p>To include the app in our project, we need to add a reference to its configuration class in the INSTALLED_APPS setting:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'todolist'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="URL-View-and-a-Minimal-Working-Website"><a href="#URL-View-and-a-Minimal-Working-Website" class="headerlink" title="URL, View and a Minimal Working Website"></a>URL, View and a Minimal Working Website</h2><p>As mentioned above, urls.py is like a “table of contents”. It is a URLconf. Let’s create a “table of contents” urls.py for todolist app. For now, let’s copy the comment section from mysite/urls.py because the comment helps explain what we are doing here. Please read the comment yourself.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./todolist/urls.py</span></span><br><span class="line"><span class="string">"""mysite URL Configuration</span></span><br><span class="line"><span class="string"> The `urlpatterns` list routes URLs to views. For more information please see:</span></span><br><span class="line"><span class="string">    https://docs.djangoproject.com/en/2.1/topics/http/urls/</span></span><br><span class="line"><span class="string">Examples:</span></span><br><span class="line"><span class="string">Function views</span></span><br><span class="line"><span class="string">    1. Add an import:  from my_app import views</span></span><br><span class="line"><span class="string">    2. Add a URL to urlpatterns:  path('', views.home, name='home')</span></span><br><span class="line"><span class="string">Class-based views</span></span><br><span class="line"><span class="string">    1. Add an import:  from other_app.views import Home</span></span><br><span class="line"><span class="string">    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')</span></span><br><span class="line"><span class="string">Including another URLconf</span></span><br><span class="line"><span class="string">    1. Import the include() function: from django.urls import include, path</span></span><br><span class="line"><span class="string">    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>Let’s reference this app URLconf in our project URLconf based on the instructions in the comment:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./mysite/urls.py</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">''</span>, include(<span class="string">'todolist.urls'</span>)) <span class="comment"># add this line (and any import if needed by include)</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>Before we complete todolist/urls.py, let’s create a view inside todolist/views.py. </p>
+<p>What is a view?</p>
+<blockquote>
+<p>A view function, or view for short, is simply a Python function that takes a Web request and returns a Web response.</p>
+</blockquote>
+<p>Good! It sounds like exactly what we need:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./todolist/views.py</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    message = <span class="string">"Current Time: &#123;&#125;"</span>.format(datetime.datetime.now())</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(message)</span><br></pre></td></tr></table></figure>
+<p>Now it’s time to complete todolist/urls.py:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./todolist/urls.py</span></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> todolist <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, views.index, name=<span class="string">'index'</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>Let’s verify our code works:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> runserver</span><br></pre></td></tr></table></figure>
+<p>Now that the server’s running, visit <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener">http://127.0.0.1:8000/</a> with a Web browser. We can see the current time on the page!</p>
+<h2 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h2><p>You can either use Bootstrap CDN or downloard source files to apply Bootstrap. Here we downloard the source files into static directory:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── manage.py</span><br><span class="line">├── static</span><br><span class="line">│   ├── css</span><br><span class="line">│   │   └── bootstrap.css</span><br><span class="line">│   ├── fonts</span><br><span class="line">│   └── js</span><br><span class="line">│       ├── bootstrap.js</span><br><span class="line">│       └── jquery-<span class="number">3.3</span>.<span class="number">1</span>.js</span><br><span class="line">├── mysite</span><br><span class="line">│   └── ...</span><br><span class="line">└── todolist</span><br><span class="line">    └── ...</span><br></pre></td></tr></table></figure>
+<p>To apply Bootstrap, include this into the html file</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/css/bootstrap.css"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/jquery-3.3.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/bootstrap.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️ The order of include matters here! ⚠️  </p>
+</blockquote>
+<h2 id="HTML-and-Template"><a href="#HTML-and-Template" class="headerlink" title="HTML and Template"></a>HTML and Template</h2><p>Create an empty template directory. Inside it, create a basic html file with Bootstrap style:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ./template/base.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>TodoList<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/css/bootstrap.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/jquery-3.3.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/bootstrap.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    &#123;% block content %&#125;</span><br><span class="line">    &#123;% endblock %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Being a web framework, Django needs a convenient way to generate HTML dynamically. The most common approach relies on templates. A template contains the static parts of the desired HTML output as well as some special syntax describing how dynamic content will be inserted.</p>
+</blockquote>
+<p>As above show, we are using <strong>block and extends</strong> template syntax to quickly apply Bootstrap style to our index.html.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ./template/index.html --&gt;</span></span><br><span class="line">&#123;% extends 'base.html' %&#125;</span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>TodoList<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<p>For loop and if statement on a dynamic variable returned by backend:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for todo in todos %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">        &#123;% if todo.completed %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">del</span>&gt;</span>&#123;&#123; todo.title &#125;&#125;<span class="tag">&lt;/<span class="name">del</span>&gt;</span></span><br><span class="line">        &#123;% else %&#125;</span><br><span class="line">            &#123;&#123; todo.title &#125;&#125;</span><br><span class="line">        &#123;% endif %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️ All those will not work unless the templates engines are configured with the TEMPLATES setting. ⚠️  </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [os.path.join(BASE_DIR, <span class="string">'templates'</span>)],</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="comment"># ... some options here ...</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="Database-and-Model"><a href="#Database-and-Model" class="headerlink" title="Database and Model"></a>Database and Model</h2><blockquote>
+<p>A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.</p>
+</blockquote>
+<p>Define the model, which is the database object. This step is similar to schema definition in some traditional database workflows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Todo</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    title = models.CharField(max_length=<span class="number">255</span>)</span><br><span class="line">    description = models.TextField(blank=<span class="literal">True</span>)</span><br><span class="line">    completed = models.BooleanField(default=<span class="literal">False</span>)</span><br><span class="line">    created_at = models.DateTimeField(auto_now_add=<span class="literal">True</span>)</span><br><span class="line">    updated_at = models.DateTimeField(auto_now=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        ordering = (<span class="string">'completed'</span>, <span class="string">'-updated_at'</span>,)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Model metadata is “anything that’s not a field”, such as ordering options (<code>ordering</code>). For <code>ordering</code>, aach string is a field name with an optional “-“ prefix, which indicates descending order. Fields without a leading “-“ will be ordered ascending.</p>
+</blockquote>
+<p>Keep in mind, everytime you modify a model, you need to regenerate migration scripts and migrate:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python3 manage<span class="selector-class">.py</span> makemigrations</span><br><span class="line">...</span><br><span class="line">$ python3 manage<span class="selector-class">.py</span> migrate</span><br></pre></td></tr></table></figure>
+<h2 id="HTTP-Form-GET-and-POST"><a href="#HTTP-Form-GET-and-POST" class="headerlink" title="HTTP Form, GET and POST"></a>HTTP Form, GET and POST</h2><p>The <code>&lt;form&gt;</code> tag is used to create an HTML form for user input. Any applicable input tags inside the form will be sent over to server side.</p>
+<p>A typical login submission form looks like this:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">  Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name_field"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password_field"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>method</code> attribute specifies the HTTP method to send the form data:</p>
+<ul>
+<li><p>GET is used to request data from a specified resource:</p>
+<ul>
+<li>GET requests can be cached</li>
+<li>GET requests remain in the browser history</li>
+<li>GET requests can be bookmarked</li>
+<li><strong>GET requests should never be used when dealing with sensitive data</strong></li>
+<li>GET requests have length restrictions</li>
+<li>GET requests is only used to request data (not modify)</li>
+<li>The query string (name/value pairs) is sent in the URL of a GET request:  <figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/test/demo<span class="number">_f</span>orm.php?name<span class="number">1</span>=<span class="keyword">value</span><span class="number">1</span>&amp;name<span class="number">2</span>=<span class="keyword">value</span><span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>POST is used to send data to a server to create/update a resource</p>
+<ul>
+<li>POST requests are never cached</li>
+<li>POST requests do not remain in the browser history</li>
+<li>POST requests cannot be bookmarked</li>
+<li>POST requests have no restrictions on data length</li>
+<li>The data sent to the server with POST is stored in the request body of the HTTP request:  <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">POST /test/demo_form<span class="selector-class">.php</span> HTTP/<span class="number">1.1</span></span><br><span class="line">Host: w3schools.com</span><br><span class="line">name1=value1&amp;name2=value2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Add-Complete-Delete-a-Todo"><a href="#Add-Complete-Delete-a-Todo" class="headerlink" title="Add/Complete/Delete a Todo"></a>Add/Complete/Delete a Todo</h2><p>To avoid form resubmission issue, we use POST/Redirect/GET pattern here. Therefore, each action is being posted to its corresponding url for server processing. Id is also posted for complete and delete actions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./todolist/urls.py</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, views.todo_list, name=<span class="string">'todo_home'</span>),</span><br><span class="line">    path(<span class="string">'add/'</span>, views.add),</span><br><span class="line">    path(<span class="string">'complete/&lt;int:todo_id&gt;/'</span>, views.complete),</span><br><span class="line">    path(<span class="string">'delete/&lt;int:todo_id&gt;/'</span>, views.delete)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./todolist/views.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(request)</span>:</span></span><br><span class="line">    todoname = request.POST.get(<span class="string">'todoname'</span>)</span><br><span class="line">    new_todo = Todo.objects.create(title=todoname, user_id=request.user.id)</span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'/'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">todo_list</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> request.user.is_authenticated:</span><br><span class="line">        <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'accounts/login/'</span>)</span><br><span class="line">    todos = Todo.objects.filter(user_id=request.user.id)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'index.html'</span>, locals())</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>At a early version of this code, Add Todo action was posted to the same url as the index page. As a result, when you refresh the page right after a new todo item was added, a duplicate todo item would be added. This was caused by duplicate form resubmission. To solve this issue, Post/Redirect/Get was used. Instead of posting to the same url, Add Todo action posts to a dedicated url and server invokes a redirect to index page. Read more <a href="https://en.wikipedia.org/wiki/Post/Redirect/Get" target="_blank" rel="noopener">here</a> and <a href="https://realpython.com/django-redirects/#django-redirects-a-super-simple-example" target="_blank" rel="noopener">here</a>.</p>
+</blockquote>
+<h2 id="Animate-SVG-Logo"><a href="#Animate-SVG-Logo" class="headerlink" title="Animate SVG Logo"></a>Animate SVG Logo</h2><p>To include a SVG logo inside HTML, simply insert the SVG code, which you can get from Adobe Illustrator when save. It typically looks like this:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;</span></span><br><span class="line">    <span class="meta">&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">id</span>=<span class="string">"Layer_1"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">x</span>=<span class="string">"0px"</span> <span class="attr">y</span>=<span class="string">"0px"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">viewBox</span>=<span class="string">"-174 126.3 3784 2536.5"</span> <span class="attr">enable-background</span>=<span class="string">"new -174 126.3 3784 2536.5"</span> <span class="attr">xml:space</span>=<span class="string">"preserve"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">g</span> <span class="attr">enable-background</span>=<span class="string">"new    "</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">path</span> <span class="attr">fill</span>=<span class="string">"#FFFFFF"</span> <span class="attr">stroke</span>=<span class="string">"#231F20"</span> <span class="attr">stroke-width</span>=<span class="string">"5px"</span> <span class="attr">d</span>=<span class="string">"M1650.4,1206.5h-2.5l-150.1,71.4l-30.3-138l208.2-96.9h152.6v786.9h-177.9L1650.4,1206.5L1650.4,1206.5z"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Include <code>anime.js</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Animate:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> paths = <span class="built_in">document</span>.querySelectorAll(<span class="string">'path'</span>);</span><br><span class="line">paths.forEach(<span class="function"><span class="params">el</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> pLen = el.getTotalLength();</span><br><span class="line">  el.setAttribute(<span class="string">'stroke-dasharray'</span>, pLen + <span class="string">' '</span> + pLen );</span><br><span class="line">  anime(&#123;</span><br><span class="line">    targets: el,</span><br><span class="line">    strokeDashoffset: [anime.setDashoffset, <span class="number">0</span>],</span><br><span class="line">    easing: <span class="string">'easeInOutSine'</span>,</span><br><span class="line">    duration: <span class="number">1500</span>,</span><br><span class="line">    delay: <span class="function"><span class="keyword">function</span>(<span class="params">el, i</span>) </span>&#123; <span class="keyword">return</span> i * <span class="number">250</span> &#125;,</span><br><span class="line">    direction: <span class="string">'alternate'</span>,</span><br><span class="line">    loop: <span class="literal">true</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="AJAX-Request"><a href="#AJAX-Request" class="headerlink" title="AJAX Request"></a>AJAX Request</h2><p>We have been redirecting users to other url for each todolist action, which is okay but not perfect. Users don’t want to see their page being refreshed again and again. That’s where AJAX comes into the picture. Let’s rework our todolist page to have a textbox inside the list-group. Whenever users type inside the textbox and hit enter, an AJAX version Add action is sent to backend.</p>
+<p>To send an AJAX request:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// this is the ajax callback function</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Ajax response received!"</span> + xhr.responseText );</span><br><span class="line">  <span class="keyword">let</span> jsonResponse = <span class="built_in">JSON</span>.parse(xhr.responseText);</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">'POST'</span>,<span class="string">'/add-ajax/'</span>, <span class="literal">true</span> );</span><br><span class="line"><span class="keyword">var</span> csrftoken = $(<span class="string">"[name=csrfmiddlewaretoken]"</span>).val();</span><br><span class="line">xhr.setRequestHeader(<span class="string">"X-CSRFToken"</span>, csrftoken);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Requested-With'</span>, <span class="string">'XMLHttpRequest'</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line">todoTitle = <span class="built_in">document</span>.getElementsByName(<span class="string">'todoname-ajax'</span>)[<span class="number">0</span>].value;</span><br><span class="line">xhr.send(<span class="string">"todoname="</span>+todoTitle);</span><br></pre></td></tr></table></figure>
+<p>To process an AJAX request on server side and return a JSON response:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_ajax</span><span class="params">(request)</span>:</span></span><br><span class="line">    todoname = request.POST.get(<span class="string">'todoname'</span>)</span><br><span class="line">    new_todo = Todo.objects.create(title=todoname, user_id=request.user.id)</span><br><span class="line">    data = &#123; <span class="string">'created_title'</span> : new_todo.title, <span class="string">'created_id'</span>: new_todo.id &#125;</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(data)</span><br></pre></td></tr></table></figure>
+<h2 id="About-Deployment"><a href="#About-Deployment" class="headerlink" title="About Deployment"></a>About Deployment</h2><p>Add the deployment domain to ALLOWED_HOSTS setting:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALLOWED_HOSTS = [<span class="string">'2do.pythonanywhere.com'</span>]</span><br></pre></td></tr></table></figure>
+<p>Serve the static/asset directory according to the host service provider’s instructions. Usually, this might include running this command:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage<span class="selector-class">.py</span> collectstatic</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://wsvincent.com/django-user-authentication-tutorial-login-and-logout/" target="_blank" rel="noopener">Django Login/Logout Tutorial (Part 1)</a><br><a href="https://uxplanet.org/how-the-bootstrap-4-grid-works-a1b04703a3b7" target="_blank" rel="noopener">How the Bootstrap 4 Grid Works</a><br><a href="https://kimmobrunfeldt.github.io/progressbar.js/" target="_blank" rel="noopener">progressbar.js</a><br><a href="https://animejs.com/" target="_blank" rel="noopener">anime.js</a><br><a href="https://css-tricks.com/svg-line-animation-works/" target="_blank" rel="noopener">How SVG Line Animation Works</a><br><a href="https://hackernoon.com/metamorphosis-morphing-svgs-378cf4f3aa58" target="_blank" rel="noopener">Metamorphosis: morphing SVGs</a><br><a href="https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html" target="_blank" rel="noopener">How to Work With AJAX Request With Django</a><br><a href="https://www.w3schools.com/js/js_ajax_http_send.asp" target="_blank" rel="noopener">AJAX - Send a Request To a Server</a><br><a href="https://docs.djangoproject.com/en/dev/ref/csrf/#ajax" target="_blank" rel="noopener">Cross Site Request Forgery protection - Ajax</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/front-end/" rel="tag"># front end</a>
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/django/" rel="tag"># django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/static-versus-dynamic-libraries/" rel="next" title="Static vs Dynamic Libraries">
+                <i class="fa fa-chevron-left"></i> Static vs Dynamic Libraries
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/23/manage-multiple-github-accounts-on-the-same-laptop/" rel="prev" title="Manage Multiple GitHub Accounts on the Same Laptop">
+                Manage Multiple GitHub Accounts on the Same Laptop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/avatar.jpg" alt="B01un">
+            
+              <p class="site-author-name" itemprop="name">B01un</p>
+              <p class="site-description motion-element" itemprop="description">Stay hungry. Stay foolish.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bolunzhang" target="_blank" title="GitHub"><i class="fa fa-fw fa-github-alt"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:rzhangbolun@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-at"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.linkedin.com/in/bolun-zhang-io" target="_blank" title="LinkedIn"><i class="fa fa-fw fa-linkedin"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/bolooon" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup-Environment"><span class="nav-number">1.</span> <span class="nav-text">Setup Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-Django-Project"><span class="nav-number">2.</span> <span class="nav-text">Create Django Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-Django-App"><span class="nav-number">3.</span> <span class="nav-text">Create Django App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-View-and-a-Minimal-Working-Website"><span class="nav-number">4.</span> <span class="nav-text">URL, View and a Minimal Working Website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootstrap"><span class="nav-number">5.</span> <span class="nav-text">Bootstrap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-and-Template"><span class="nav-number">6.</span> <span class="nav-text">HTML and Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database-and-Model"><span class="nav-number">7.</span> <span class="nav-text">Database and Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-Form-GET-and-POST"><span class="nav-number">8.</span> <span class="nav-text">HTTP Form, GET and POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-Complete-Delete-a-Todo"><span class="nav-number">9.</span> <span class="nav-text">Add/Complete/Delete a Todo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Animate-SVG-Logo"><span class="nav-number">10.</span> <span class="nav-text">Animate SVG Logo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-Request"><span class="nav-number">11.</span> <span class="nav-text">AJAX Request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-Deployment"><span class="nav-number">12.</span> <span class="nav-text">About Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">13.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">B01un</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('Copied')
+          else $(this).text('Copy failed')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('Copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+  
+</body>
+</html>
