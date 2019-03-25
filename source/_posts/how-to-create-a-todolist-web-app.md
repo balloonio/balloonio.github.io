@@ -9,7 +9,7 @@ categories:
   - projects
 ---
 
-2do1ist is a todolist app using Django framework. Demo [here](https://2do.pythonanywhere.com/). [![Build Status](https://travis-ci.org/balloonio/2do1ist.svg?branch=master)](https://travis-ci.org/balloonio/2do1ist)
+2do1ist is a todolist app using Django framework. Demo [here](https://2do.pythonanywhere.com/).
 
 <!-- more -->
 
