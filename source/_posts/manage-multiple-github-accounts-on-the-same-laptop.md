@@ -47,7 +47,7 @@ Now you should have two files under `~/.ssh` dir - `~/.ssh/id_rsa_personal` and 
 
 # Add SSH Key to GitHub
 
-Add `id_rsa_personal.pub` key to your personal GitHub account; add `id_rsa_company.pub` to your company GitHub account. See the instructions from https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account.
+Add `id_rsa_personal.pub` key to your personal GitHub account; add `id_rsa_company.pub` to your company GitHub account. See the instructions from [here](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account).
 
 # Add SSH Config
 
@@ -74,7 +74,11 @@ Host mygithub
 
 # Update Git Config
 
-SSH keys determine the permissions whether you are allowed to clone or commit to a repository. However, rather surprisingly, the authorship of the commits themselves are determined by the user configured in `.gitconfig`. What this means is you can end up showing as the author of a commit to a repository that you are not permissioned. For example, you have a private repository *WORK* under your company GitHub account and you have a private repository *HOME* under your personal GitHub account. Obviously, you company account does not have access to *HOME* and your personal account does not have access to *WORK*. As scary as it sounds, if you have your `.gitconfig` configured to be company account and make commits to *HOME*, you will end up making the commit without permission issue but with your company account username shown as the author of the commit. (For detailed information, please see https://help.github.com/en/articles/why-are-my-commits-linked-to-the-wrong-user.) To avoid this issue, make sure your `.gitconfig` is configured to use personal username/email within personal repositories and company username/email within company repositories. There are multiple ways to achive this. You can create local `.gitconfig` for each repository. Or alternatively, you can manage multiple `.gitconfig` files in a similar fashion as what we did with SSH keys. Here is how:
+SSH keys determine the permissions whether you are allowed to clone or commit to a repository. However, rather surprisingly, the authorship of the commits themselves are determined by the user configured in `.gitconfig`. What this means is you can end up showing as the author of a commit to a repository that you are not permissioned.
+
+For example, you have a private repository *WORK* under your company GitHub account and you have a private repository *HOME* under your personal GitHub account. Obviously, you company account does not have access to *HOME* and your personal account does not have access to *WORK*. As scary as it sounds, if you have your `.gitconfig` configured to be company account and make commits to *HOME*, you will end up making the commit without permission issue but with your company account username shown as the author of the commit. For detailed information, please see [here](https://help.github.com/en/articles/why-are-my-commits-linked-to-the-wrong-user).
+
+To avoid this issue, make sure your `.gitconfig` is configured to use personal username/email within personal repositories and company username/email within company repositories. There are multiple ways to achive this. You can create local `.gitconfig` for each repository. Or alternatively, you can manage multiple `.gitconfig` files in a similar fashion as what we did with SSH keys. Here is how:
 
 Create `~/.gitconfig-company` as following:
 
