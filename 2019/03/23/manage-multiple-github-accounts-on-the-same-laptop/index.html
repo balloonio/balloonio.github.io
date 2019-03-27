@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on rep">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-26T00:32:57.469Z">
+<meta property="og:updated_time" content="2019-03-27T04:09:24.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Manage Multiple GitHub Accounts on the Same Laptop">
 <meta name="twitter:description" content="Have you ever had the pain to switch between laptops because one has the work GitHub account set up while the other has your personal GitHub account set up? Have you ever dreamed of how to work on rep">
@@ -390,7 +390,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-25 20:32:57" itemprop="dateModified" datetime="2019-03-25T20:32:57-04:00">2019-03-25</time>
+                <time title="Modified: 2019-03-27 00:09:24" itemprop="dateModified" datetime="2019-03-27T00:09:24-04:00">2019-03-27</time>
               
             
           </span>
@@ -488,6 +488,8 @@
 <li><p>If you are using SSH instead of HTTP. If you have any osxkeychain or credential helper enabled, you might have a cached username for HTTP access. The cached credential sometimes enforces an HTTP connection instead of SSH. A simple solution is to remove any cached GitHub credential.</p>
 </li>
 <li><p>In the SSH config, don’t give the hostname a meaningful resolvable hostname. For example, at the place where we put <code>workgithub</code> as the host name, you can put any name you want but not something like <code>github.com</code>. The reason is sometimes <code>github.com</code> may appear in your personal repository’s <code>&lt;repo-dir&gt;/.git/config</code>; it may resolve into your company SSH key since you are using <code>github.com</code> as your company SSH key host name. This can create permission issues that are hard to detect. One handy tool to debug SSH permission is run <code>ssh -vT git@&lt;host-name&gt;</code>. e.g. <code>ssh -vT git@github.com</code>, <code>ssh -vT git@workgithub</code> or <code>ssh -vT git@mygithub</code></p>
+</li>
+<li><p>If you are having trouble with SSH permission after you reboot the laptop, please make sure you have the SSH keys added. Check with <code>ssh-add -l</code>. If you don’t see any keys there, add those keys with <code>ssh-add ~/.ssh/id_rsa_personal</code> or <code>ssh-add ~/.ssh/id_rsa_company</code>.</p>
 </li>
 </ul>
 
