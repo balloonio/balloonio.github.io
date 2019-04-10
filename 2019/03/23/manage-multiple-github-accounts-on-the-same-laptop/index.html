@@ -471,13 +471,13 @@
 <p>Create <code>~/.gitconfig-personal</code> as following:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	name = Bolun Zhang</span><br><span class="line">	email = bolun.zhang@personal_github_account_email.com</span><br></pre></td></tr></table></figure>
 <p>Now, change the original <code>~/.gitconfig</code> to the following:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">includeIf <span class="meta-string">"gitdir:~/CompanyRepos/"</span></span>]</span><br><span class="line">    path = ~/.gitconfig-company</span><br><span class="line">[<span class="meta">includeIf <span class="meta-string">"gitdir:~/PersonalRepos/"</span></span>]</span><br><span class="line">    path = ~/.gitconfig-personal</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[includeIf &quot;gitdir:~/CompanyRepos/&quot;]</span><br><span class="line">    path = ~/.gitconfig-company</span><br><span class="line">[includeIf &quot;gitdir:~/PersonalRepos/&quot;]</span><br><span class="line">    path = ~/.gitconfig-personal</span><br></pre></td></tr></table></figure>
 <p>You can probably already guess what this config file does - it applies different <code>.gitconfig</code> file based on the current directory. Now you just need to organize your workspace so that company repositories are only cloned under <code>~/CompanyRepos/</code> while personal repositories under <code>~/PersonalRepos/</code>.</p>
 <h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><p>Now we are completely done with all the set up.</p>
 <p>To clone a work repository:</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">workgithub</span>:<span class="tag">&lt;organization-name&gt;</span>/<span class="tag">&lt;repo-name&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone workgithub:&lt;organization-name&gt;/&lt;repo-name&gt;</span><br></pre></td></tr></table></figure>
 <p>To clone a personal repository:</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">mygithub</span>:<span class="tag">&lt;your-username&gt;</span>/<span class="tag">&lt;repo-name&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone mygithub:&lt;your-username&gt;/&lt;repo-name&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="Issues-and-Solutions"><a href="#Issues-and-Solutions" class="headerlink" title="Issues and Solutions"></a>Issues and Solutions</h1><ul>
 <li><p>If you are working on a repository that is already cloned and now have some permission issues after the setup, modify the <code>&lt;repo-dir&gt;/.git/config</code> file to make sure the <code>[remote &quot;origin&quot;]</code> section matches the SSH host.</p>
 <p>  For example, you may have cloned the repository before using HTTP. In that case, the <code>&lt;repo-dir&gt;/.git/config</code> file will show the following as <code>[remote &quot;origin&quot;]</code>:</p>
@@ -613,7 +613,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -711,7 +711,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

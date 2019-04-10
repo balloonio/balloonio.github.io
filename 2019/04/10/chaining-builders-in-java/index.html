@@ -134,25 +134,25 @@
 
 
 
-  <meta name="description" content="This page discusses the fundamental differences and tradeoffs between using static and dynamic libraries for application development, along with specific considerations for why static linking is often">
-<meta name="keywords" content="c,c++,build,compiler,linker">
+  <meta name="description" content="This blog is a borrowed content from Adam’s blog here. All copyright are due to the original blogger.">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Static vs Dynamic Libraries">
-<meta property="og:url" content="http://bolunzhang.me/2018/12/14/static-versus-dynamic-libraries/index.html">
+<meta property="og:title" content="Chaining Builders in Java">
+<meta property="og:url" content="http://bolunzhang.me/2019/04/10/chaining-builders-in-java/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="This page discusses the fundamental differences and tradeoffs between using static and dynamic libraries for application development, along with specific considerations for why static linking is often">
+<meta property="og:description" content="This blog is a borrowed content from Adam’s blog here. All copyright are due to the original blogger.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T19:56:52.524Z">
+<meta property="og:updated_time" content="2019-04-10T18:27:40.090Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Static vs Dynamic Libraries">
-<meta name="twitter:description" content="This page discusses the fundamental differences and tradeoffs between using static and dynamic libraries for application development, along with specific considerations for why static linking is often">
+<meta name="twitter:title" content="Chaining Builders in Java">
+<meta name="twitter:description" content="This blog is a borrowed content from Adam’s blog here. All copyright are due to the original blogger.">
 
 
 
 
 
 
-  <link rel="canonical" href="http://bolunzhang.me/2018/12/14/static-versus-dynamic-libraries/">
+  <link rel="canonical" href="http://bolunzhang.me/2019/04/10/chaining-builders-in-java/">
 
 
 
@@ -162,7 +162,7 @@
   };
 </script>
 
-  <title>Static vs Dynamic Libraries | blog</title>
+  <title>Chaining Builders in Java | blog</title>
   
 
 
@@ -331,7 +331,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2018/12/14/static-versus-dynamic-libraries/">
+    <link itemprop="mainEntityOfPage" href="http://bolunzhang.me/2019/04/10/chaining-builders-in-java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bolun Zhang">
@@ -348,7 +348,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Static vs Dynamic Libraries
+          <h1 class="post-title" itemprop="name headline">Chaining Builders in Java
               
             
           </h1>
@@ -373,24 +373,12 @@
                 
               
 
-              <time title="Created: 2018-12-14 18:50:00" itemprop="dateCreated datePublished" datetime="2018-12-14T18:50:00-05:00">2018-12-14</time>
+              <time title="Created: 2019-04-10 14:14:59 / Modified: 14:27:40" itemprop="dateCreated datePublished" datetime="2019-04-10T14:14:59-04:00">2019-04-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-22 15:56:52" itemprop="dateModified" datetime="2019-03-22T15:56:52-04:00">2019-03-22</time>
               
             
           </span>
@@ -441,41 +429,27 @@
       
 
       
-        <p>This page discusses the fundamental differences and tradeoffs between using static and dynamic libraries for application development, along with specific considerations for why static linking is often chosen for applications at some big companies.</p>
+        <p>This blog is a borrowed content from Adam’s blog <a href="http://adamish.com/blog/archives/405" target="_blank" rel="noopener">here</a>. All copyright are due to the original blogger.</p>
 <a id="more"></a>
-<h1 id="Static-Libraries-a-files"><a href="#Static-Libraries-a-files" class="headerlink" title="Static Libraries (.a files)"></a>Static Libraries (<code>.a</code> files)</h1><p><code>.a</code> = Archive</p>
-<p>Just an archive (like a .tar or .zip) of individual .o files, created by the ar tool.<br>When linking into an exexutable, the linker extracts and links those objects which contain symbols referenced by the compiled code.</p>
+<p>JavaFX uses chaining builders as a kind of syntactic sugar. Here’s an example. The first <code>create()</code> creates the builder (and inner text object), the subsequent calls set attributes on the the object, and finally it is returned via <code>.build()</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Text text = TextBuilder.create()</span><br><span class="line">    .text(<span class="string">"hello"</span>)</span><br><span class="line">    .x(<span class="number">50</span>).y(<span class="number">100</span>)</span><br><span class="line">    .fill(Color.RED)</span><br><span class="line">.build();</span><br></pre></td></tr></table></figure>
+<p>Advantages:</p>
 <ul>
-<li>Historically, all of the object is loaded, so all its dependencies must also be, even if the call chain is never invoked. (With advanced <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">function-level sections</a>, only the individual functions and variables are added to the executable.)</li>
-<li>Cleaner code that organizes disparate code into different source files is still better than relying on the linker.</li>
+<li>Slightly less code.</li>
+<li>Safer (as self-documenting) than complicated constructors with same type e.g. (String, int, int, int, int)</li>
+<li>No need for intermediate object if we were just passing it to another method.</li>
+<li>I think they’re can be useful than that… What if the builder was the only way to create a new instance of your class… What if you were creating an immutable type….</li>
 </ul>
-<h1 id="Dynamic-Libraries-so-files"><a href="#Dynamic-Libraries-so-files" class="headerlink" title="Dynamic Libraries (.so files)"></a>Dynamic Libraries (<code>.so</code> files)</h1><p><code>.so</code> = Shared Object (or a <code>.dll</code> file in the Microsoft Windows world)</p>
-<p>Contains compiled code from component <code>.o</code> files, but those files may no longer exist individually.</p>
-<p>When linking into an executable, the linker simply sets up references in the executable to the .so file, which are only realized by the OS when it is loading the executable into memory.</p>
-<ul>
-<li>Objects must be compiled <a href="https://en.wikipedia.org/wiki/Position-independent_code" target="_blank" rel="noopener">‘PIC’</a>.</li>
-<li>All of the library must be loaded</li>
-</ul>
-<blockquote>
-<p>AIX objects use XCOFF, and are always PIC, and can also reside in both <code>.a</code> and <code>.so</code> files.</p>
-</blockquote>
-<h1 id="Static-vs-Dynamic-Pros-plus-and-Cons-minus"><a href="#Static-vs-Dynamic-Pros-plus-and-Cons-minus" class="headerlink" title="Static vs. Dynamic Pros (plus) and Cons (minus)"></a>Static vs. Dynamic Pros (plus) and Cons (minus)</h1><h2 id="Static-Libraries-the-library-exists-once-in-each-executable"><a href="#Static-Libraries-the-library-exists-once-in-each-executable" class="headerlink" title="Static Libraries - the library exists once in each executable:"></a>Static Libraries - the library exists once in <em>each</em> executable:</h2><ul>
-<li><strong>Plus</strong>: Executable may load faster, because symbol resolution already took place at compile-time.</li>
-<li><strong>Plus</strong>: Only the objects actually used by the task are included in the executable.</li>
-<li><em>Minus</em>: Consumes additional diskspace and memory for each executable.</li>
-<li><em>Minus</em>: Cannot update executables without relinking.</li>
-<li><strong>Plus</strong>: Cannot break executables without relinking.</li>
-</ul>
-<h2 id="Dynamic-Libraries-the-library-exists-once-for-all-executables"><a href="#Dynamic-Libraries-the-library-exists-once-for-all-executables" class="headerlink" title="Dynamic Libraries - the library exists once for all executables:"></a>Dynamic Libraries - the library exists once for <em>all</em> executables:</h2><ul>
-<li><strong>Plus</strong>: If an <code>.so</code> is already loaded, the executable may load faster, because it is a smaller file.</li>
-<li><em>Minus</em>: If an <code>.so</code> is not already loaded, the executable’s remaining undefined symbols must be resolved at start-up.</li>
-<li><em>Minus</em>: All or nothing - the entire library must be loaded if any part of it is required.</li>
-<li><strong>Plus</strong>: Consumes diskspace and memory only once.</li>
-<li><strong>Plus</strong>: Can update executables without relinking.</li>
-<li><em>Minus</em>: Possible to break executables without relinking.</li>
-</ul>
-<h1 id="Deployment-of-Shared-Libraries"><a href="#Deployment-of-Shared-Libraries" class="headerlink" title="Deployment of Shared Libraries"></a>Deployment of Shared Libraries</h1><p>Since shared libraries put off the final linking of the application until runtime, it is essential that the shared libraries used by an application are compatible with it at a binary level. This is easier to do when libraries have consistently managed <a href="https://en.wikipedia.org/wiki/Application_binary_interface" target="_blank" rel="noopener">ABI</a>s. As a consequence, it is risky to deploy shared libraries used by a number of different applications unless a single team owns the development and release of the stack, applications and libraries together.</p>
-<h1 id="Static-Linking-of-Applications"><a href="#Static-Linking-of-Applications" class="headerlink" title="Static Linking of Applications"></a>Static Linking of Applications</h1><p>As a result of the above, applications at big companies are commonly linked statically, except for dependencies on shared libraries that are deployed from DPKG. Even in this case, applications need to be relinked and redeployed consistently to ensure they do not break when the underlying distribution updates.</p>
+<p>Here’s a standard immutable type.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Horse</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> height;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">(String name, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name;</span><br><span class="line">      <span class="keyword">this</span>.height = height;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>It looks harmless enough, but what happens when someone adds a new field, say age, weight? We have to extend the constructor, and because we already have code using the old constructor we end up with many different constructors leading to confusion.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">(String name, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.height = height;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">(String name, <span class="keyword">int</span> height, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(name, height);</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">(String name, <span class="keyword">int</span> height, <span class="keyword">int</span> age, <span class="keyword">int</span> weight)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(name, height, age);</span><br><span class="line">    <span class="keyword">this</span>.weight = weight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>So how can we make this more future-proof using chaining builders. Well here’s the same class with a built in builder. Using the builder is the only way to instiate a new horse.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Horse</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> height;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Horse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Horse horse = <span class="keyword">new</span> Horse();</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">name</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            horse.name = name;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">height</span><span class="params">(<span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">            horse.height = height;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Horse <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> horse;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Builder <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Builder();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>So we create a horse as follows.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Horse h = Horse.create()</span><br><span class="line">        .name(<span class="string">"ed"</span>)</span><br><span class="line">        .height(<span class="number">123</span>)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<p>So how do we support future attributes? We just add new sections to the builder… We also have a clear single point of construction, the build() method. This could contain additional logic to finish the job.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">weight</span><span class="params">(<span class="keyword">int</span> weight)</span> </span>&#123;</span><br><span class="line">    horse.weight = weight;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">age</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">    horse.age = age;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -496,15 +470,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"># c</a>
-          
-            <a href="/tags/c/" rel="tag"># c++</a>
-          
-            <a href="/tags/build/" rel="tag"># build</a>
-          
-            <a href="/tags/compiler/" rel="tag"># compiler</a>
-          
-            <a href="/tags/linker/" rel="tag"># linker</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -517,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/08/a-beginners-notes-on-http/" rel="next" title="A beginner's notes on HTTP">
-                <i class="fa fa-chevron-left"></i> A beginner's notes on HTTP
+              <a href="/2019/03/25/some-thoughts-on-financial-industry/" rel="next" title="Some thoughts on Financial Industry">
+                <i class="fa fa-chevron-left"></i> Some thoughts on Financial Industry
               </a>
             
           </div>
@@ -526,10 +492,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/18/how-to-create-a-todolist-web-app/" rel="prev" title="How to create a Todolist web app">
-                How to create a Todolist web app <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -576,17 +538,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -753,22 +706,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-Libraries-a-files"><span class="nav-number">1.</span> <span class="nav-text">Static Libraries (.a files)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dynamic-Libraries-so-files"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Libraries (.so files)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-vs-Dynamic-Pros-plus-and-Cons-minus"><span class="nav-number">3.</span> <span class="nav-text">Static vs. Dynamic Pros (plus) and Cons (minus)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Libraries-the-library-exists-once-in-each-executable"><span class="nav-number">3.1.</span> <span class="nav-text">Static Libraries - the library exists once in each executable:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Libraries-the-library-exists-once-for-all-executables"><span class="nav-number">3.2.</span> <span class="nav-text">Dynamic Libraries - the library exists once for all executables:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deployment-of-Shared-Libraries"><span class="nav-number">4.</span> <span class="nav-text">Deployment of Shared Libraries</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-Linking-of-Applications"><span class="nav-number">5.</span> <span class="nav-text">Static Linking of Applications</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
